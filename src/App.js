@@ -1,11 +1,11 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import Home from './components/Home';
-import About from './components/About';
 import Contact from './components/Contact';
 import Collect from './components/Collect';
 import Donate from './components/Donate';
 import './App.css';
+import CadCollect from './components/CadCollect';
 
 function App() {
   return (
@@ -18,19 +18,15 @@ function App() {
           <nav>
             <ul>
               <li><Link to="/">Início</Link></li>
-              <li><Link to="/about">Sobre</Link></li>
               <li><Link to="/locaiscoleta">Locais para coleta doações</Link></li>
               <li><Link to="/locaisdoacao">Locais para levar doações</Link></li>
-              <li><Link to="/contact">Voluntário</Link></li>
+              <li><Link to="/contact">Voluntários</Link></li>
               <li><Link to="/contact">Contato</Link></li>
             </ul>
           </nav>
         </header>
 
         <Switch>
-          <Route path="/about">
-            <About />
-          </Route>
           <Route path="/contact">
             <Contact />
           </Route>
@@ -40,6 +36,9 @@ function App() {
           <Route path="/locaisdoacao">
             <Donate />
           </Route>
+          <Route path="/cadcollect">
+            <CadCollect />
+          </Route>
           <Route path="/">
             <Home />
           </Route>
@@ -48,7 +47,7 @@ function App() {
         <footer>
           <nav>
             <ul>
-              <li><Link to="#" className="footer-button">Cadastrar local de coleta</Link></li>
+              <li><Link to="/cadcollect" className="footer-button">Cadastrar local de coleta</Link></li>
               <li><Link to="#" className="footer-button">Cadastrar local de doação</Link></li>
               <li><Link to="#" className="footer-button">Quero ser Voluntário</Link></li>
             </ul>

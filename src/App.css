@@ -3,6 +3,7 @@ body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
+  background-color: #332b2b1d
 }
 
 header {
@@ -22,15 +23,10 @@ header img {
   height: auto;
 }
 
-.page-content {
-  max-width: 800px; /* Largura máxima do conteúdo */
-  margin: 0 auto; /* Centraliza horizontalmente */
-  padding: 20px;
-}
-
-nav ul {
-  list-style-type: none;
-  padding: 0;
+nav {
+  border: 2px solid #fff; /* Adiciona uma borda sólida branca ao redor do menu */
+  background-color: rgba(213, 213, 213, 0.8); /* Cor de fundo com transparência */
+  border-radius: 10px; /* Adiciona bordas arredondadas ao redor do menu */
 }
 
 nav ul li {
@@ -59,8 +55,6 @@ nav ul li a.active {
 
 .footer-button {
   display: inline-block; /* Altera a exibição para inline-block */
-  margin-right: 10px; /* Espaçamento entre os botões */
-  padding: 10px 20px;
   background-color: #007bff; /* Cor de fundo */
   color: #fff; /* Cor do texto */
   text-decoration: none;
@@ -72,12 +66,12 @@ nav ul li a.active {
   background-color: #0056b3; /* Cor de fundo ao passar o mouse */
 }
 
+
 @media (max-width: 768px) {
   .footer-button {
     flex-direction: row; /* Empilha os elementos verticalmente */
     align-items: center; /* Centraliza os itens horizontalmente */
     display: flex;
-    margin-right: 0px; /* Espaçamento entre os botões */
   }
 
   .button-container {
