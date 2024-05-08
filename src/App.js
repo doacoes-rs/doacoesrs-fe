@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as HashRouter, Switch, Route, Link } from 'react-router-dom';
 import Home from './components/locations/form/location-home';
 import Contact from './components/Contact';
 import Donate from './components/locations/form/location-donate';
@@ -8,18 +8,18 @@ import CadCollect from './components/locations/form/location-form';
 
 function App() {
   return (
-    <Router>
+    <HashRouter>
       <div>
-	<header>
+	      <header>
           <a href="https://www.vakinha.com.br/vaquinha/a-maior-campanha-solidaria-do-rs?">
             <img src="https://static.vakinha.com.br/uploads/vakinha/image/4712837/1714579840.27.png?ims=700x410" alt="Logo" />
           </a>
           <nav>
             <ul>
-              <li><a href="/">Início</a></li>
-              <li><a href="/locaisdoacao">Onde doar</a></li>
-              <li><a href="/cadcollect">Cadastrar local de doação</a></li>
-              <li><a href="/contact">Contato</a></li>
+              <li><Link to="/">Início</Link></li>
+              <li><Link to="/locaisdoacao">Onde doar</Link></li>
+              <li><Link to="/cadcollect">Cadastrar local de doação</Link></li>
+              <li><Link to="/contact">Contato</Link></li>
             </ul>
           </nav>
         </header>
@@ -40,7 +40,7 @@ function App() {
         </Switch>
 
       </div>
-    </Router>
+    </HashRouter>
   );
 }
 
