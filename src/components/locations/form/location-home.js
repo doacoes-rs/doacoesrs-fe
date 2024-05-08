@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Typography, Button, Card, CardContent, Box, CardMedia, Paper } from '@mui/material';
+import { Container, Typography, Button, Card, CardContent, Box, CardMedia } from '@mui/material';
 import Carousel from 'react-material-ui-carousel'
 
 function Home() {
