@@ -4,8 +4,9 @@ function CadCollect() {
   const [cep, setCep] = useState(''); // Estado para armazenar o CEP
   const [endereco, setEndereco] = useState(''); // Estado para armazenar o endereço encontrado com base no CEP
   const [complemento, setComplemento] = useState(''); // Estado para armazenar o complemento
-  const [itensNecessarios, setItensNecessarios] = useState(''); // Estado para armazenar os itens necessários
+  const [itensNecessarios, setItensNecessarios] = useState([]); // Estado para armazenar os itens necessários
   const [nomeLocal, setNomeLocal] = useState(''); // Estado para armazenar o nome do local de coleta
+  const [comentarios, setComentarios] = useState(''); // Estado para armazenar os comentários
 
   // Função para buscar a localização com base no CEP
   const buscarLocalizacaoPorCep = async () => {
@@ -42,7 +43,8 @@ function CadCollect() {
         endereco,
         complemento,
         itensNecessarios,
-        nomeLocal
+        nomeLocal,
+        comentarios // Incluindo o campo de comentários no payload
       };
 
       // Aqui você deve substituir 'URL_DA_API' pela URL da sua API
@@ -64,6 +66,24 @@ function CadCollect() {
     }
   };
 
+  // Manipulador de eventos para a seleção de itens necessários
+  const handleItemNecessarioChange = (event) => {
+    const itemSelecionado = event.target.value;
+    const isChecked = event.target.checked;
+
+    if (isChecked) {
+      setItensNecessarios([...itensNecessarios, itemSelecionado]);
+    } else {
+      setItensNecessarios(itensNecessarios.filter(item => item !== itemSelecionado));
+    }
+  };
+
+  // Manipulador de eventos para o campo de comentários
+  const handleComentariosChange = (event) => {
+    const comentariosDigitados = event.target.value;
+    setComentarios(comentariosDigitados);
+  };
+
   return (
     <div>
       <h2>Cadastrar local para coleta de doações</h2>
@@ -79,7 +99,7 @@ function CadCollect() {
       {/* Exibição do endereço */}
       <p>{endereco}</p>
 
-      {/* Campos de texto livre para complemento, itens necessários e nome do local */}
+      {/* Campos de texto livre para complemento, nome do local e comentários */}
       {endereco && (
         <>
           <div>
@@ -87,22 +107,46 @@ function CadCollect() {
             <input type="text" id="complemento" value={complemento} onChange={(e) => setComplemento(e.target.value)} />
           </div>
           <div>
-            <label htmlFor="itensNecessarios">Itens necessários:</label>
+            <label htmlFor="nomeLocal">Nome do local de coleta:</label>
+            <input type="text" id="nomeLocal" value={nomeLocal} onChange={(e) => setNomeLocal(e.target.value)} />
+          </div>
+          <div>
+            <label htmlFor="comentarios">Comentários:</label>
             <textarea
-              id="itensNecessarios"
-              value={itensNecessarios}
-              onChange={(e) => setItensNecessarios(e.target.value)}
-              maxLength={250}
+              id="comentarios"
+              value={comentarios}
+              onChange={handleComentariosChange}
               rows={5}
               cols={40}
             />
           </div>
-          <div>
-            <label htmlFor="nomeLocal">Nome do local de coleta:</label>
-            <input type="text" id="nomeLocal" value={nomeLocal} onChange={(e) => setNomeLocal(e.target.value)} />
-          </div>
         </>
       )}
+
+      {/* Checkboxes para os itens necessários */}
+      <div>
+        <p>Itens necessários:</p>
+        <label>
+          <input type="checkbox" value="Alimentos" onChange={handleItemNecessarioChange} />
+          Alimentos
+        </label>
+        <label>
+          <input type="checkbox" value="Roupas" onChange={handleItemNecessarioChange} />
+          Roupas
+        </label>
+        <label>
+          <input type="checkbox" value="Produtos de Higiene" onChange={handleItemNecessarioChange} />
+          Produtos de Higiene
+        </label>
+        <label>
+          <input type="checkbox" value="Materias de limpeza" onChange={handleItemNecessarioChange} />
+          Materias de limpeza
+        </label>
+        <label>
+          <input type="checkbox" value="Outros" onChange={handleItemNecessarioChange} />
+          Outros
+        </label>
+      </div>
 
       {/* Botão de envio */}
       {endereco && (
