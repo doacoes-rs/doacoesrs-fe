@@ -1,0 +1,37 @@
+/* Estilo para o formulário */
+.form-container {
+  max-width: 400px; /* Largura máxima do formulário */
+  margin: 32px auto; /* Centraliza o formulário horizontalmente */
+  padding: 20px; /* Adiciona espaçamento interno */
+  border: 1px solid #ccc; /* Adiciona uma borda ao redor do formulário */
+  border-radius: 5px; /* Adiciona bordas arredondadas */
+  background-color: #f9f9f9; /* Cor de fundo do formulário */
+}
+
+/* Estilo para os campos de entrada */
+.form-input {
+  width: 100%; /* Largura total do campo */
+  margin-bottom: 15px; /* Espaçamento inferior entre os campos */
+  padding: 10px; /* Adiciona espaçamento interno */
+  border: 1px solid #ccc; /* Adiciona uma borda ao redor do campo */
+  border-radius: 5px; /* Adiciona bordas arredondadas */
+
+  box-sizing: border-box; /* Inclui o padding e a borda no tamanho total do campo */
+}
+
+/* Estilo para o botão de envio */
+.form-submit {
+  width: 100%; /* Largura total do botão */
+  padding: 10px; /* Adiciona espaçamento interno */
+  background-color: #007bff; /* Cor de fundo do botão */
+  color: #fff; /* Cor do texto do botão */
+  border: none; /* Remove a borda do botão */
+  border-radius: 5px; /* Adiciona bordas arredondadas */
+  cursor: pointer; /* Altera o cursor ao passar o mouse sobre o botão */
+}
+
+/* Estilo para o botão de envio quando o mouse passa por cima */
+.form-submit:hover {
+  background-color: #0056b3; /* Cor de fundo do botão ao passar o mouse */
+}
+

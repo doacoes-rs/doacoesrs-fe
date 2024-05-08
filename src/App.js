@@ -1,11 +1,11 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Home from './components/Home';
 import Contact from './components/Contact';
 import Collect from './components/Collect';
 import Donate from './components/Donate';
 import './App.css';
-import CadCollect from './components/CadCollect';
+import CadCollect from './components/locations/form/location-form';
 
 function App() {
   return (
@@ -17,11 +17,11 @@ function App() {
           </a>
           <nav>
             <ul>
-              <li><Link to="/">Início</Link></li>
-              <li><Link to="/locaiscoleta">Onde doar</Link></li>
-              <li><Link to="/cadcollect">Cadastrar local de doação</Link></li>
-              {/* <li><Link to="/contact">Voluntários</Link></li> */}
-              <li><Link to="/contact">Contato</Link></li>
+              <li><a href="/">Início</a></li>
+              <li><a href="/locaiscoleta">Onde doar</a></li>
+              <li><a href="/cadcollect">Cadastrar local de doação</a></li>
+              {/* <li><a to="/contact">Voluntários</a></li> */}
+              <li><a href="/contact">Contato</a></li>
             </ul>
           </nav>
         </header>

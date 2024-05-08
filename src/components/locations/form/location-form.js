@@ -1,4 +1,17 @@
+import "./location-form.scss"
 import React, { useState } from 'react';
+import Button from '@mui/material/Button';
+
+
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Typography from '@mui/material/Typography';
+import TextField from '@mui/material/TextField';
+
+
+
 
 function CadCollect() {
   const [cep, setCep] = useState(''); // Estado para armazenar o CEP
@@ -85,12 +98,68 @@ function CadCollect() {
   };
 
   return (
-    <div>
-      <h2>Cadastrar local para coleta de doações</h2>
+    <Card sx={{ maxWidth: 500 }} className="form-container">
+      <CardContent>
+        <Typography gutterBottom variant="h5" component="div">
+          Cadastrar local para coleta de doações
+        </Typography>
+
+        <TextField
+          required
+          id="outlined-required"
+          label="CEP"
+          placeholder="09810-100"
+          variant="standard"
+          onChange={handleCepChange}
+          onBlur={handlePesquisarCep}
+        />
+        <TextField
+          required
+          id="outlined-required"
+          label="CEP"
+          placeholder="09810-100"
+          variant="standard"
+        />
+        <TextField
+          required
+          id="outlined-required"
+          label="CEP"
+          placeholder="09810-100"
+          variant="standard"
+        />
+      </CardContent>
+
+
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       <p>Informe o CEP para encontrar o endereço:</p>
 
       {/* Campo de entrada para o CEP */}
-      <div>
+      <div className="form-input">
         <label htmlFor="cep">CEP:</label>
         <input type="text" id="cep" value={cep} onChange={handleCepChange} />
         <button onClick={handlePesquisarCep}>Buscar CEP</button>
@@ -158,9 +227,9 @@ function CadCollect() {
 
       {/* Botão de envio */}
       {endereco && (
-        <button onClick={enviarDadosParaApi}>Enviar</button>
+        <Button variant="contained" onClick={enviarDadosParaApi}>Enviar</Button>
       )}
-    </div>
+    </Card>
   );
 }
 
