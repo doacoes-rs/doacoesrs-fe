@@ -23,6 +23,7 @@ function CadCollect() {
   const [complemento, setComplemento] = useState(''); // Estado para armazenar o complemento
   const [itensNecessarios, setItensNecessarios] = useState([]); // Estado para armazenar os itens necessários
   const [nomeLocal, setNomeLocal] = useState(''); // Estado para armazenar o nome do local de coleta
+  const [numero, setNumero] = useState(''); // Estado para armazenar o número
   const [responsavel, setResponsavel] = useState(''); // Estado para armazenar o nome do local de coleta
   const [comentarios, setComentarios] = useState(''); // Estado para armazenar os comentários
 
@@ -59,6 +60,7 @@ function CadCollect() {
       const payload = {
         cep,
         endereco,
+        numero,
         complemento,
         itensNecessarios,
         nomeLocal,
@@ -137,6 +139,17 @@ function CadCollect() {
            </Box>
 
           {/* Campos de texto livre para complemento, nome do local e comentários */}
+              <Box className="form-input">
+                <TextField
+                  sx={{ width: '100%', maxWidth: '480px' }}
+                  id="number"
+                  label="Número"
+                  type="number" // Definindo o tipo como "number"
+                  value={numero}
+                  variant="standard"
+                  onChange={(e) => setNumero(e.target.value)}
+                />
+              </Box>
               <Box className="form-input">
                 <TextField
                   sx={{ width: '100%', maxWidth: '480px' }}
