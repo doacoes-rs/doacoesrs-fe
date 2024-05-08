@@ -13,7 +13,7 @@ header {
   padding: 20px;
   color: #fff; /* Texto branco */
   position: relative; /* Para posicionar elementos filhos */
-  background: linear-gradient(-45deg,#FFCB04 0%, #FFCB04 33%, #EE302F 33%, #EE302F 66%, #00AB4E
+  background: linear-gradient(-12deg,#FFCB04 0%, #FFCB04 33%, #EE302F 33%, #EE302F 66%, #00AB4E
   66%, #00AB4E 100%);
 }
 
