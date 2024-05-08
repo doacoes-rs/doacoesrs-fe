@@ -143,6 +143,14 @@ function CadCollect() {
           Materias de limpeza
         </label>
         <label>
+          <input type="checkbox" value="Produtos Pet" onChange={handleItemNecessarioChange} />
+          Produtos Pet
+        </label>
+        <label>
+          <input type="checkbox" value="Pix" onChange={handleItemNecessarioChange} />
+          Pix
+        </label>
+        <label>
           <input type="checkbox" value="Outros" onChange={handleItemNecessarioChange} />
           Outros
         </label>
