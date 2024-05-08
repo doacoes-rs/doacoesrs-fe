@@ -1,8 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import Home from './components/Home';
+import Home from './components/locations/form/location-home';
 import Contact from './components/Contact';
-import Donate from './components/Donate';
+import Donate from './components/locations/form/location-donate';
 import './App.css';
 import CadCollect from './components/locations/form/location-form';
 
@@ -17,9 +17,8 @@ function App() {
           <nav>
             <ul>
               <li><a href="/">Início</a></li>
-              <li><a href="/locaiscoleta">Onde doar</a></li>
+              <li><a href="/locaisdoacao">Onde doar</a></li>
               <li><a href="/cadcollect">Cadastrar local de doação</a></li>
-              {/* <li><a to="/contact">Voluntários</a></li> */}
               <li><a href="/contact">Contato</a></li>
             </ul>
           </nav>

@@ -23,6 +23,7 @@ function CadCollect() {
   const [complemento, setComplemento] = useState(''); // Estado para armazenar o complemento
   const [itensNecessarios, setItensNecessarios] = useState([]); // Estado para armazenar os itens necessários
   const [nomeLocal, setNomeLocal] = useState(''); // Estado para armazenar o nome do local de coleta
+  const [responsavel, setResponsavel] = useState(''); // Estado para armazenar o nome do local de coleta
   const [comentarios, setComentarios] = useState(''); // Estado para armazenar os comentários
 
   // Função para buscar a localização com base no CEP
@@ -61,6 +62,7 @@ function CadCollect() {
         complemento,
         itensNecessarios,
         nomeLocal,
+        responsavel,
         comentarios // Incluindo o campo de comentários no payload
       };
 
@@ -112,7 +114,6 @@ function CadCollect() {
           <Box className="form-input">
             <TextField
             sx={{ width: '100%', maxWidth: '480px' }}
-            required
             id="outlined-required"
             label="CEP"
             placeholder="09810-100"
@@ -121,12 +122,20 @@ function CadCollect() {
             onBlur={handlePesquisarCep}
             />
           </Box>
+          <Box className="form-input">
+            <TextField
+              required
+              sx={{ width: '100%', maxWidth: '480px' }}
+              id="endereco"
+              label="Endereço"
+              defaultValue={endereco}
+              value={endereco}
+              variant="standard"
+              onChange={(e) => setEndereco(e.target.value)}
+              />
+           </Box>
 
-          {/* Exibição do endereço */}
-          <p>{endereco}</p>
-
-          {endereco && (
-            <>
+          {/* Campos de texto livre para complemento, nome do local e comentários */}
               <Box className="form-input">
                 <TextField
                   sx={{ width: '100%', maxWidth: '480px' }}
@@ -140,11 +149,23 @@ function CadCollect() {
               <Box className="form-input" sx={{ width: '100%' }}>
                 <TextField
                   sx={{ width: '100%', maxWidth: '480px' }}
+                  required
                   variant="standard"
                   id="nomeLocal"
                   label="Nome do local de coleta"
                   value={nomeLocal}
                   onChange={(e) => setNomeLocal(e.target.value)}
+                />
+              </Box>
+              <Box className="form-input" sx={{ width: '100%' }}>
+                <TextField
+                  sx={{ width: '100%', maxWidth: '480px' }}
+                  required
+                  variant="standard"
+                  id="responsavel"
+                  label="Contatos do responsável"
+                  value={nomeLocal}
+                  onChange={(e) => setResponsavel(e.target.value)}
                 />
               </Box>
               <Box className="form-input">
@@ -158,8 +179,6 @@ function CadCollect() {
                   rows={5}
                 />
               </Box>
-            </>
-          )}
 
           {/* Checkboxes para os itens necessários */}
           <Box className="form-input">
