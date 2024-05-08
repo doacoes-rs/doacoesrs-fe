@@ -14,7 +14,12 @@ function Donate() {
       try {
         const response = await fetch('https://servicodados.ibge.gov.br/api/v1/localidades/estados');
         const data = await response.json();
-        setEstados(data); // Atualiza o estado com os dados dos estados
+        const estadosOrdenados = data.sort((a, b) => {
+          if (a.nome < b.nome) return -1;
+          if (a.nome > b.nome) return 1;
+          return 0;
+        });
+        setEstados(estadosOrdenados); // Atualiza o estado com os dados dos estados ordenados
       } catch (error) {
         console.error('Erro ao buscar os estados:', error);
       }
