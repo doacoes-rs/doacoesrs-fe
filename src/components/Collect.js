@@ -78,7 +78,7 @@ function Collect() {
 
   return (
     <div>
-      <h2>Locais que estão coletando doações para levar às cidades afetadas</h2>
+      <h2>Locais que estão coletando doações</h2>
       <p>Selecione o estado e a cidade onde você deseja entregar suas doações</p>
 
       {/* Campo de seleção para os estados */}

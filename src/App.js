@@ -19,7 +19,7 @@ function App() {
             <ul>
               <li><Link to="/">Início</Link></li>
               <li><Link to="/locaiscoleta">Onde doar</Link></li>
-              {/* <li><Link to="/locaisdoacao">Cidades que precisam de doação</Link></li> */}
+              <li><Link to="/cadcollect">Cadastrar local de doação</Link></li>
               {/* <li><Link to="/contact">Voluntários</Link></li> */}
               <li><Link to="/contact">Contato</Link></li>
             </ul>
@@ -44,15 +44,6 @@ function App() {
           </Route>
         </Switch>
 
-        <footer>
-          <nav>
-            <ul>
-              <li><Link to="/cadcollect" className="footer-button">Cadastrar local de doação</Link></li>
-              {/* <li><Link to="#" className="footer-button">Cadastrar local de doação</Link></li> */}
-              {/* <li><Link to="#" className="footer-button">Quero ser Voluntário</Link></li> */}
-            </ul>
-          </nav>
-        </footer>
       </div>
     </Router>
   );
