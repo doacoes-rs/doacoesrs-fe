@@ -78,8 +78,8 @@ function Collect() {
 
   return (
     <div>
-      <h2>Locais para coleta de doações</h2>
-      <p>Selecione o estado e a cidade onde você deseja entregar as doações</p>
+      <h2>Locais que estão coletando doações para levar às cidades afetadas</h2>
+      <p>Selecione o estado e a cidade onde você deseja entregar suas doações</p>
 
       {/* Campo de seleção para os estados */}
       <label htmlFor="estado">Selecione um estado:</label>

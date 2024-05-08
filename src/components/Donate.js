@@ -56,8 +56,8 @@ function Donate() {
   return (
     <div>
       <div>
-        <h2>Locais que precisam de doação</h2>
-        <p>Selecione a cidade do Rio Grande do Sul:</p>
+        <h2>Cidades que precisam de doação</h2>
+        <p>Selecione a cidade do Rio Grande do Sul que deseja levar a doação</p>
         {/* Campo de seleção para as cidades do RS */}
         <select name="cidade" id="cidade" onChange={handleCidadeChange}>
           <option value="">Selecione uma cidade</option>
