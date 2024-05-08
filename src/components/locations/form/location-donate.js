@@ -1,6 +1,6 @@
 import "./location-form.scss"
 import React, { useState, useEffect } from 'react';
-import { FormControl, InputLabel, Select, MenuItem, Button, Box, Typography, Card, CardContent  } from '@mui/material';
+import { FormControl, InputLabel, Select, MenuItem, Button, Box, Typography, Card, CardContent, Alert, AlertTitle  } from '@mui/material';
 
 function Donate() {
   const [estados, setEstados] = useState([]); // Estado para armazenar os estados
@@ -85,6 +85,10 @@ function Donate() {
 
   return (
     <Card sx={{ maxWidth: 500 }} className="form-container">
+        <Alert severity="warning">
+          <AlertTitle>Cuidado</AlertTitle>
+          Por favor, verifique as referências dos locais de doação antes de se deslocar ou enviar doações. Não se coloque em risco tentando ajudar.
+        </Alert>
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
           Locais que estão coletando doações
