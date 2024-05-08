@@ -4,11 +4,15 @@ import Button from '@mui/material/Button';
 
 
 import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
+//import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
+//import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
+import Checkbox from '@mui/material/Checkbox';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Box from '@mui/material/Box';
+
 
 
 
@@ -99,136 +103,102 @@ function CadCollect() {
 
   return (
     <Card sx={{ maxWidth: 500 }} className="form-container">
-      <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-          Cadastrar local para coleta de doações
-        </Typography>
+        <CardContent>
+          <Typography gutterBottom variant="h5" component="div">
+            Cadastrar local para receber doações
+          </Typography>
 
-        <TextField
-          required
-          id="outlined-required"
-          label="CEP"
-          placeholder="09810-100"
-          variant="standard"
-          onChange={handleCepChange}
-          onBlur={handlePesquisarCep}
-        />
-        <TextField
-          required
-          id="outlined-required"
-          label="CEP"
-          placeholder="09810-100"
-          variant="standard"
-        />
-        <TextField
-          required
-          id="outlined-required"
-          label="CEP"
-          placeholder="09810-100"
-          variant="standard"
-        />
-      </CardContent>
-
-
-      
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      <p>Informe o CEP para encontrar o endereço:</p>
-
-      {/* Campo de entrada para o CEP */}
-      <div className="form-input">
-        <label htmlFor="cep">CEP:</label>
-        <input type="text" id="cep" value={cep} onChange={handleCepChange} />
-        <button onClick={handlePesquisarCep}>Buscar CEP</button>
-      </div>
-
-      {/* Exibição do endereço */}
-      <p>{endereco}</p>
-
-      {/* Campos de texto livre para complemento, nome do local e comentários */}
-      {endereco && (
-        <>
-          <div>
-            <label htmlFor="complemento">Complemento:</label>
-            <input type="text" id="complemento" value={complemento} onChange={(e) => setComplemento(e.target.value)} />
-          </div>
-          <div>
-            <label htmlFor="nomeLocal">Nome do local de coleta:</label>
-            <input type="text" id="nomeLocal" value={nomeLocal} onChange={(e) => setNomeLocal(e.target.value)} />
-          </div>
-          <div>
-            <label htmlFor="comentarios">Comentários:</label>
-            <textarea
-              id="comentarios"
-              value={comentarios}
-              onChange={handleComentariosChange}
-              rows={5}
-              cols={40}
+          {/* Campo de entrada para o CEP */}
+          <Box className="form-input">
+            <TextField
+            sx={{ width: '100%', maxWidth: '480px' }}
+            required
+            id="outlined-required"
+            label="CEP"
+            placeholder="09810-100"
+            variant="standard"
+            onChange={handleCepChange}
+            onBlur={handlePesquisarCep}
             />
-          </div>
-        </>
-      )}
+          </Box>
 
-      {/* Checkboxes para os itens necessários */}
-      <div>
-        <p>Itens necessários:</p>
-        <label>
-          <input type="checkbox" value="Alimentos" onChange={handleItemNecessarioChange} />
-          Alimentos
-        </label>
-        <label>
-          <input type="checkbox" value="Roupas" onChange={handleItemNecessarioChange} />
-          Roupas
-        </label>
-        <label>
-          <input type="checkbox" value="Produtos de Higiene" onChange={handleItemNecessarioChange} />
-          Produtos de Higiene
-        </label>
-        <label>
-          <input type="checkbox" value="Materias de limpeza" onChange={handleItemNecessarioChange} />
-          Materias de limpeza
-        </label>
-        <label>
-          <input type="checkbox" value="Produtos Pet" onChange={handleItemNecessarioChange} />
-          Produtos Pet
-        </label>
-        <label>
-          <input type="checkbox" value="Pix" onChange={handleItemNecessarioChange} />
-          Pix
-        </label>
-        <label>
-          <input type="checkbox" value="Outros" onChange={handleItemNecessarioChange} />
-          Outros
-        </label>
-      </div>
+          {/* Exibição do endereço */}
+          <p>{endereco}</p>
 
-      {/* Botão de envio */}
-      {endereco && (
-        <Button variant="contained" onClick={enviarDadosParaApi}>Enviar</Button>
-      )}
+          {endereco && (
+            <>
+              <Box className="form-input">
+                <TextField
+                  sx={{ width: '100%', maxWidth: '480px' }}
+                  id="complemento"
+                  label="Complemento"
+                  value={complemento}
+                  variant="standard"
+                  onChange={(e) => setComplemento(e.target.value)}
+                />
+              </Box>
+              <Box className="form-input" sx={{ width: '100%' }}>
+                <TextField
+                  sx={{ width: '100%', maxWidth: '480px' }}
+                  variant="standard"
+                  id="nomeLocal"
+                  label="Nome do local de coleta"
+                  value={nomeLocal}
+                  onChange={(e) => setNomeLocal(e.target.value)}
+                />
+              </Box>
+              <Box className="form-input">
+                <TextField
+                  sx={{ width: '100%', maxWidth: '480px' }}
+                  id="comentarios"
+                  label="Comentários"
+                  value={comentarios}
+                  onChange={handleComentariosChange}
+                  multiline
+                  rows={5}
+                />
+              </Box>
+            </>
+          )}
+
+          {/* Checkboxes para os itens necessários */}
+          <Box className="form-input">
+            <p>Itens de doação necessários:</p>
+            <FormControlLabel
+              control={<Checkbox onChange={handleItemNecessarioChange} />}
+              label="Alimentos"
+            />
+            <FormControlLabel
+              control={<Checkbox onChange={handleItemNecessarioChange} />}
+              label="Roupas"
+            />
+            <FormControlLabel
+              control={<Checkbox onChange={handleItemNecessarioChange} />}
+              label="Remédios"
+            />
+            <FormControlLabel
+              control={<Checkbox onChange={handleItemNecessarioChange} />}
+              label="Produtos de Higiene"
+            />
+            <FormControlLabel
+              control={<Checkbox onChange={handleItemNecessarioChange} />}
+              label="Materias de limpeza"
+            />
+            <FormControlLabel
+              control={<Checkbox onChange={handleItemNecessarioChange} />}
+              label="Produtos Pet"
+            />
+            <FormControlLabel
+              control={<Checkbox onChange={handleItemNecessarioChange} />}
+              label="Outros"
+            />
+          </Box>
+
+          {/* Botão de envio */}
+          {endereco && (
+            <Button variant="contained" onClick={enviarDadosParaApi}>Cadastrar</Button>
+          )}
+      </CardContent>
     </Card>
   );
 }
