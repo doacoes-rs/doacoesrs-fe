@@ -17,21 +17,21 @@ function App() {
           <nav>
             <ul>
               <li><Link to="/">Início</Link></li>
-              <li><Link to="/locaisdoacao">Onde doar</Link></li>
-              <li><Link to="/cadcollect">Cadastrar local de doação</Link></li>
-              <li><Link to="/contact">Contato</Link></li>
+              <li><Link to="/ondedoar">Onde doar</Link></li>
+              <li><Link to="/cadlocal">Cadastrar local de doação</Link></li>
+              <li><Link to="/contato">Contato</Link></li>
             </ul>
           </nav>
         </header>
 
         <Switch>
-          <Route path="/contact">
+          <Route path="/contato">
             <Contact />
           </Route>
-          <Route path="/locaisdoacao">
+          <Route path="/ondedoar">
             <Donate />
           </Route>
-          <Route path="/cadcollect">
+          <Route path="/cadlocal">
             <CadCollect />
           </Route>
           <Route path="/">
