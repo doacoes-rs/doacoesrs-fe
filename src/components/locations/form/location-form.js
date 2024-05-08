@@ -131,6 +131,7 @@ function CadCollect() {
               defaultValue={endereco}
               value={endereco}
               variant="standard"
+              disabled
               onChange={(e) => setEndereco(e.target.value)}
               />
            </Box>
