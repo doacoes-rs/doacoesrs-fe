@@ -92,7 +92,6 @@ function Donate() {
           Locais que estão coletando doações
           </Typography>
       <p>Selecione o estado e a cidade onde você deseja entregar suas doações</p>
-
       <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
       {/* Campo de seleção para os estados */}
       <FormControl sx={{ width: '100%', marginBottom: 2 }}>

@@ -23,7 +23,8 @@ function CadCollect() {
   const [numero, setNumero] = useState(''); // Estado para armazenar o número
   const [responsavel, setResponsavel] = useState(''); // Estado para armazenar o nome do local de coleta
   const [comentarios, setComentarios] = useState(''); // Estado para armazenar os comentários
-
+  const [localidade, setLocalidade] = useState(''); // Estado para armazenar a localidade
+  const [uf, setUf] = useState(''); // Estado para armazenar a UF
   // Função para buscar a localização com base no CEP
 
  // const defaultDate = addDays(new Date(), 15);
@@ -36,6 +37,8 @@ function CadCollect() {
       if (!data.erro) {
         const enderecoCompleto = `${data.logradouro}, ${data.localidade} - ${data.uf}`;
         setEndereco(enderecoCompleto);
+        setUf(data.uf);
+        setLocalidade(data.localidade);
       } else {
         setEndereco('Endereço não encontrado para o CEP fornecido.');
       }
@@ -60,6 +63,8 @@ function CadCollect() {
     try {
       const payload = {
         cep,
+        uf,
+        localidade,
         endereco,
         numero,
         complemento,
@@ -142,6 +147,9 @@ function CadCollect() {
               <Box className="form-input">
                 <TextField
                   sx={{ width: '100%', maxWidth: '480px' }}
+                  InputProps={{
+                    inputProps: { min: 0 }
+                  }}
                   id="number"
                   label="Número"
                   type="number" // Definindo o tipo como "number"
@@ -181,7 +189,7 @@ function CadCollect() {
                   variant="standard"
                   id="responsavel"
                   label="Contatos do responsável"
-                  value={nomeLocal}
+                  value={responsavel}
                   onChange={(e) => setResponsavel(e.target.value)}
                 />
               </Box>
@@ -231,7 +239,7 @@ function CadCollect() {
           </Box>
 
           {/* Botão de envio */}
-          {endereco && (
+          {endereco && responsavel && nomeLocal &&(
             <Button variant="contained" onClick={enviarDadosParaApi}>Cadastrar</Button>
           )}
       </CardContent>
