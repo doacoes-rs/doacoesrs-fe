@@ -18,6 +18,16 @@ function Contact() {
           <Typography variant="body2" sx={{ mt: 1 }}>
             Estamos constantemente trabalhando para melhorar nossos serviços e sua opinião é muito importante para nós. Agradecemos antecipadamente por entrar em contato!
           </Typography>
+
+          {/* Seção de agradecimento */}
+          <Box mt={4}>
+            <Typography variant="h5" gutterBottom>
+              Agradecimentos
+            </Typography>
+            <Typography variant="body1">
+              Gostaríamos de expressar nossa sincera gratidão a todas as pessoas que contribuíram com este projeto Felipe Travi, Pedro Pereira e Raphael Rossi. Seu apoio é inestimável e estamos verdadeiramente gratos por isso.
+            </Typography>
+          </Box>
         </CardContent>
       </Card>
     </Container>
