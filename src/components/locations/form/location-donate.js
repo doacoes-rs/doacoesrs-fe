@@ -1,6 +1,7 @@
 import "./location-form.scss"
 import React, { useState, useEffect } from 'react';
-import { FormControl, InputLabel, Select, MenuItem, Button, Box, Typography, Card, CardContent, Alert, AlertTitle  } from '@mui/material';
+import { FormControl, InputLabel, Select, MenuItem, Button, Box, Typography, Card, CardContent, Alert, AlertTitle, Link } from '@mui/material';
+import MailOutlineIcon from '@mui/icons-material/MailOutline';
 
 function Donate() {
   const [items, setItems] = useState([]);
@@ -91,7 +92,12 @@ function Donate() {
           <Typography gutterBottom variant="h5" component="div">
           Locais que estão coletando doações
           </Typography>
-      <p>Selecione o estado e a cidade onde você deseja entregar suas doações</p>
+      <p>
+        Selecione o estado e a cidade onde você deseja entregar suas doações ou
+        <Link href="https://blog.correios.com.br/2024/05/07/ampliamos-nossa-rede-de-apoio-as-vitimas-saiba-onde-e-o-que-doar-para-ajudar-2/" target="_blank"> envie por qualquer unidade dos Correios
+          <MailOutlineIcon fontSize="small" style={{ verticalAlign: 'middle', marginLeft: '4px' }} />
+        </Link>
+      </p>
       <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
       {/* Campo de seleção para os estados */}
       <FormControl sx={{ width: '100%', marginBottom: 2 }}>
