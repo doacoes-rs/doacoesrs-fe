@@ -4,16 +4,13 @@ import Button from '@mui/material/Button';
 
 
 import Card from '@mui/material/Card';
-//import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
-//import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Box from '@mui/material/Box';
-
-
+//import { addDays } from 'date-fns';
 
 
 
@@ -28,6 +25,10 @@ function CadCollect() {
   const [comentarios, setComentarios] = useState(''); // Estado para armazenar os comentários
 
   // Função para buscar a localização com base no CEP
+
+ // const defaultDate = addDays(new Date(), 15);
+
+
   const buscarLocalizacaoPorCep = async () => {
     try {
       const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
@@ -104,7 +105,6 @@ function CadCollect() {
     const comentariosDigitados = event.target.value;
     setComentarios(comentariosDigitados);
   };
-
   return (
     <Card sx={{ maxWidth: 500 }} className="form-container">
         <CardContent>
@@ -170,6 +170,9 @@ function CadCollect() {
                   value={nomeLocal}
                   onChange={(e) => setNomeLocal(e.target.value)}
                 />
+              </Box>
+              <Box>
+
               </Box>
               <Box className="form-input" sx={{ width: '100%' }}>
                 <TextField
