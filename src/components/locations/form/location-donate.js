@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { FormControl, InputLabel, Select, MenuItem, Button, Box, Typography, Card, CardContent, Alert, AlertTitle  } from '@mui/material';
 
 function Donate() {
+  const [items, setItems] = useState([]);
   const [estados, setEstados] = useState([]); // Estado para armazenar os estados
   const [cidades, setCidades] = useState([]); // Estado para armazenar as cidades
   const [selectedEstado, setSelectedEstado] = useState(''); // Estado para armazenar o estado selecionado
@@ -55,25 +56,22 @@ function Donate() {
   // Função para lidar com a pesquisa
   const handlePesquisar = async () => {
     try {
-      // Constrói o objeto payload
-      const payload = {
-        estado: selectedEstado,
-        cidade: selectedCidade
-      };
+      const url = `https://doacoesrs-be-sjg4ytffja-uc.a.run.app/locations?city=${selectedCidade}&state=${selectedEstado}`;
 
       // Faz a requisição para a API
-      const response = await fetch('URL_DA_API', {
-        method: 'POST',
+      const response = await fetch(url, {
+        method: 'GET',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(payload)
       });
 
       // Verifica se a requisição foi bem-sucedida
       if (response.ok) {
-        // Se sim, exibe uma mensagem de sucesso
-        alert('Pesquisa realizada com sucesso!');
+        // Obtém os dados da resposta
+        const data = await response.json();
+        // Atualiza o estado com os dados recebidos
+        setItems(data);
       } else {
         // Se a resposta não estiver OK, lança um erro
         throw new Error('Erro ao fazer a requisição para a API');
@@ -147,6 +145,26 @@ function Donate() {
           Pesquisar
         </Button>
       )}
+        {items.map((item, index) => (
+        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          <Card key={index} sx={{ maxWidth: 400, marginTop: 2 }}>
+            <CardContent>
+              <Typography variant="h6" component="div">
+                {item.name}
+              </Typography>
+              <Typography variant="body1">
+                Endereço: {item.address}, {item.number} - {item.complement}, {item.zip_code}
+              </Typography>
+              <Typography variant="body2">
+                Contatos: {item.contacts.join(', ')}
+              </Typography>
+              <Typography variant="body2">
+                Comentários: {item.comments}
+              </Typography>
+            </CardContent>
+          </Card>
+        </Box>
+        ))}
     </Box>
     </CardContent>
     </Card>
