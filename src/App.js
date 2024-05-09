@@ -51,7 +51,7 @@ function App() {
                   color="inherit"
                   aria-label="menu"
                   onClick={handleClick}
-                  sx={{ mr: 2 }}
+                  sx={{ mr: 2, marginLeft: 'auto' }}
                 >
                   <MenuIcon />
                 </IconButton>
@@ -89,6 +89,7 @@ function App() {
             Contato
           </MenuItem>
         </Menu>
+
         <Switch>
           <Route path="/contato">
             <Contact />
