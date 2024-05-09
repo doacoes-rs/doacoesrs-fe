@@ -40,9 +40,12 @@ nav {
   border-radius: 10px; /* Adiciona bordas arredondadas ao redor do menu */
 }
 
+nav ul {
+  padding-left: 0;
+}
+
 nav ul li {
   display: inline;
-  text-align:center;
 }
 
 nav ul li a {

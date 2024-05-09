@@ -5,8 +5,12 @@ import Contact from './components/Contact';
 import Donate from './components/locations/form/location-donate';
 import './App.css';
 import CadCollect from './components/locations/form/location-form';
-import { Toolbar, IconButton, Menu, MenuItem } from '@mui/material';
+import { Toolbar, IconButton, Menu, MenuItem, ListItemIcon} from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
+import HomeIcon from '@mui/icons-material/Home';
+import RoomIcon from '@mui/icons-material/Room';
+import AddLocationIcon from '@mui/icons-material/AddLocation';
+import MailOutlineIcon from '@mui/icons-material/MailOutline';
 
 function App() {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -77,15 +81,27 @@ function App() {
           }}
         >
           <MenuItem onClick={handleClose} component={Link} to="/">
+            <ListItemIcon>
+              <HomeIcon fontSize="small" />
+            </ListItemIcon>
             Início
           </MenuItem>
           <MenuItem onClick={handleClose} component={Link} to="/ondedoar">
+            <ListItemIcon>
+              <RoomIcon fontSize="small" />
+            </ListItemIcon>
             Onde doar
           </MenuItem>
           <MenuItem onClick={handleClose} component={Link} to="/cadlocal">
+            <ListItemIcon>
+              <AddLocationIcon fontSize="small" />
+            </ListItemIcon>
             Cadastrar local de doação
           </MenuItem>
           <MenuItem onClick={handleClose} component={Link} to="/contato">
+            <ListItemIcon>
+              <MailOutlineIcon fontSize="small" />
+            </ListItemIcon>
             Contato
           </MenuItem>
         </Menu>
