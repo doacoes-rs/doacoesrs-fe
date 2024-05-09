@@ -10,6 +10,7 @@ header {
   display: flex;
   flex-direction: column; /* Empilha os elementos verticalmente */
   align-items: center; /* Centraliza os itens horizontalmente */
+  justify-content: flex-start;
   padding: 20px;
   color: #fff; /* Texto branco */
   position: relative; /* Para posicionar elementos filhos */
@@ -23,6 +24,16 @@ header img {
   height: auto;
 }
 
+
+.menu {
+  display:  flex;  /* Coloca os elementos-filhos um ao lado do outro */
+  margin: 0 auto;
+}
+
+.menu ul {font-size: 15px; text-align:center; }
+.menu ul li {display: inline; }
+.menu ul li a {margin: 0 auto;}
+
 nav {
   border: 2px solid #fff; /* Adiciona uma borda sólida branca ao redor do menu */
   background-color: rgba(213, 213, 213, 0.8); /* Cor de fundo com transparência */
@@ -31,7 +42,7 @@ nav {
 
 nav ul li {
   display: inline;
-  margin-right: 20px;
+  text-align:center;
 }
 
 nav ul li a {
