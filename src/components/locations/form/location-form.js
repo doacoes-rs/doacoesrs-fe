@@ -67,8 +67,7 @@ function CadCollect() {
     const dataInicial = new Date();
     const expiration = new Date(dataInicial);
     expiration.setDate(expiration.getDate() + parseInt(days));
-    const expiration_date = expiration.getTime();
-    console.log(zip_code)
+    const expiration_date = Math.floor(expiration.getTime() / 1000);
     try {
       const payload = {
         zip_code,
@@ -94,25 +93,25 @@ function CadCollect() {
       });
 
       if (response.ok) {
-        setSnackbarMessage('Dados enviados com sucesso!');
-        setSnackbarOpen(true);
-        // Limpar os campos após o envio bem-sucedido
-        setZip_code('');
-        setAddress('');
-        setComplement('');
-        setItems([]);
-        setName('');
-        setDays('');
-        setNumber('');
-        setContacts('');
-        setComments('');
-        setCity('');
-        setState('');
-        setFullAddress('');
-        // Recarregar a página após 1 segundo
-        setTimeout(() => {
-          window.location.reload();
-        }, 1000);
+      setSnackbarMessage('Dados enviados com sucesso!');
+      setSnackbarOpen(true);
+      // Limpar os campos após o envio bem-sucedido
+      setZip_code('');
+      setAddress('');
+      setComplement('');
+      setItems([]);
+      setName('');
+      setDays('');
+      setNumber('');
+      setContacts('');
+      setComments('');
+      setCity('');
+      setState('');
+      setFullAddress('');
+      // Recarregar a página após 1 segundo
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
       } else {
         throw new Error('Erro ao enviar os dados para a API');
       }
