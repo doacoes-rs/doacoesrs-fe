@@ -218,6 +218,9 @@ function CadCollect() {
                   sx={{ width: '100%', maxWidth: '480px' }}
                   variant="standard"
                   id="days"
+                  InputProps={{
+                    inputProps: { min: 0 }
+                  }}
                   defaultValue={15}
                   label="Receberemos doações por quantos dias?"
                   value={days}
