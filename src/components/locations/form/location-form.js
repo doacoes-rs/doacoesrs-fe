@@ -75,7 +75,7 @@ function CadCollect() {
       };
 
       // Aqui você deve substituir 'URL_DA_API' pela URL da sua API
-      const response = await fetch('URL_DA_API', {
+      const response = await fetch('https://api.doacoesrs.com.br/locations', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

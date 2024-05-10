@@ -1,7 +1,8 @@
 import "./location-form.scss"
 import React, { useState, useEffect } from 'react';
-import { FormControl, InputLabel, Select, MenuItem, Button, Box, Typography, Card, CardContent, Alert, AlertTitle, Link } from '@mui/material';
+import { FormControl, InputLabel, Select, MenuItem, Button, Box, Typography, Card, CardContent, Alert, AlertTitle, Link, IconButton } from '@mui/material';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 function Donate() {
   const [items, setItems] = useState([]);
@@ -57,7 +58,7 @@ function Donate() {
   // Função para lidar com a pesquisa
   const handlePesquisar = async () => {
     try {
-      const url = `https://doacoesrs-be-sjg4ytffja-uc.a.run.app/locations?city=${selectedCidade}&state=${selectedEstado}`;
+      const url = `https://api.doacoesrs.com.br/locations?city=${selectedCidade}&state=${selectedEstado}`;
 
       // Faz a requisição para a API
       const response = await fetch(url, {
@@ -79,6 +80,31 @@ function Donate() {
       }
     } catch (error) {
       console.error('Erro ao pesquisar:', error);
+    }
+  };
+
+  const handleDeletePush = async (itemDelete) => {
+    try {
+      const url = `https://api.doacoesrs.com.br/locations?city=${selectedCidade}&state=${selectedEstado}`;
+      // Faz a requisição POST para a API
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(itemDelete) // Passa o item como corpo da requisição
+      });
+      console.log(itemDelete);
+      // Verifica se a requisição foi bem-sucedida
+      if (response.ok) {
+        // Chama a função onDelete para remover o item da lista
+        //onDelete(item);
+      } else {
+        // Se a resposta não estiver OK, lança um erro
+        throw new Error('Erro ao excluir o item');
+      }
+    } catch (error) {
+      console.error('Erro ao excluir o item:', error);
     }
   };
 
@@ -166,6 +192,11 @@ function Donate() {
               <Typography variant="body2">
                 Comentários: {item.comments}
               </Typography>
+              <IconButton
+                onClick={handleDeletePush(item.name)}
+                aria-label="delete">
+                <DeleteIcon />
+              </IconButton>
             </CardContent>
           </Card>
         </Box>
