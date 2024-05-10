@@ -187,7 +187,7 @@ function Donate() {
                 Endereço: {item.address}, {item.number} - {item.complement}, {item.zip_code}
               </Typography>
               <Typography variant="body2">
-                Contatos: {item.contacts.join(', ')}
+                Contatos: {item.contacts}
               </Typography>
               <Typography variant="body2">
                 Comentários: {item.comments}
