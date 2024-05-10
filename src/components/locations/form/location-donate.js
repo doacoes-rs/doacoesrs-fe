@@ -192,6 +192,9 @@ function Donate() {
               <Typography variant="body2">
                 Comentários: {item.comments}
               </Typography>
+              <Typography variant="body2">
+                O que precisamos: {item.items.join(', ')}
+              </Typography>
               <IconButton
                 onClick={handleDeletePush(item.name)}
                 aria-label="delete">
