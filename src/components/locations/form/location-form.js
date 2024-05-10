@@ -25,7 +25,7 @@ function CadCollect() {
   const [comments, setComments] = useState(''); // Estado para armazenar os comentários
   const [city, setCity] = useState(''); // Estado para armazenar a localidade
   const [state, setState] = useState(''); // Estado para armazenar a UF
-
+  const [fullAddress, setFullAddress] = useState(''); // Estado para armazenar a UF
  // const defaultDate = addDays(new Date(), 15);
 
 
@@ -34,8 +34,8 @@ function CadCollect() {
       const response = await fetch(`https://viacep.com.br/ws/${zip_code}/json/`);
       const data = await response.json();
       if (!data.erro) {
-        const enderecoCompleto = `${data.logradouro}, ${data.localidade} - ${data.uf}`;
-        setAddress(enderecoCompleto);
+        setFullAddress(`${data.logradouro}, ${data.localidade} - ${data.uf}`);
+        setAddress(data.logradouro);
         setState(data.uf);
         setCity(data.localidade);
       } else {
@@ -133,13 +133,12 @@ function CadCollect() {
             <TextField
               required
               sx={{ width: '100%', maxWidth: '480px' }}
-              id="address"
+              id="fullAddress"
               label="Endereço"
-              defaultValue={address}
-              value={address}
+              defaultValue={fullAddress}
+              value={fullAddress}
               variant="standard"
               disabled
-              onChange={(e) => setAddress(e.target.value)}
               />
            </Box>
 
