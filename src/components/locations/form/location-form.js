@@ -95,13 +95,13 @@ function CadCollect() {
 
   // Manipulador de eventos para a seleção de itens necessários
   const handleItemNecessarioChange = (event) => {
-    const itemSelecionado = event.target.value;
+    const itemLabel = event.target.name; // Obtém o nome do label do item selecionado
     const isChecked = event.target.checked;
 
     if (isChecked) {
-      setItems([...items, itemSelecionado]);
+      setItems([...items, itemLabel]); // Adiciona o nome do label aos itens selecionados
     } else {
-      setItems(items.filter(item => item !== itemSelecionado));
+      setItems(items.filter(item => item !== itemLabel)); // Remove o nome do label dos itens selecionados
     }
   };
 
@@ -209,31 +209,31 @@ function CadCollect() {
           <Box className="form-input">
             <p>Itens de doação necessários:</p>
             <FormControlLabel
-              control={<Checkbox onChange={handleItemNecessarioChange} />}
+              control={<Checkbox name="Alimentos" onChange={handleItemNecessarioChange} />}
               label="Alimentos"
             />
             <FormControlLabel
-              control={<Checkbox onChange={handleItemNecessarioChange} />}
+              control={<Checkbox name="Roupas" onChange={handleItemNecessarioChange} />}
               label="Roupas"
             />
             <FormControlLabel
-              control={<Checkbox onChange={handleItemNecessarioChange} />}
+              control={<Checkbox name="Remédios" onChange={handleItemNecessarioChange} />}
               label="Remédios"
             />
             <FormControlLabel
-              control={<Checkbox onChange={handleItemNecessarioChange} />}
+              control={<Checkbox name="Produtos de higiene" onChange={handleItemNecessarioChange} />}
               label="Produtos de Higiene"
             />
             <FormControlLabel
-              control={<Checkbox onChange={handleItemNecessarioChange} />}
-              label="Materias de limpeza"
+              control={<Checkbox name="Produtos de limpeza" onChange={handleItemNecessarioChange} />}
+              label="Produtos de limpeza"
             />
             <FormControlLabel
-              control={<Checkbox onChange={handleItemNecessarioChange} />}
-              label="Produtos Pet"
+              control={<Checkbox name="Produtos para PETs"onChange={handleItemNecessarioChange} />}
+              label="Produtos para PETs"
             />
             <FormControlLabel
-              control={<Checkbox onChange={handleItemNecessarioChange} />}
+              control={<Checkbox name="Outros" onChange={handleItemNecessarioChange} />}
               label="Outros"
             />
           </Box>
