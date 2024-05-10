@@ -13,7 +13,7 @@ import TextField from '@mui/material/TextField';
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Box from '@mui/material/Box';
-//import { addDays } from 'date-fns';
+import Tooltip from '@mui/material/Tooltip';
 
 
 
@@ -154,15 +154,17 @@ function CadCollect() {
 
           {/* Campo de entrada para o CEP */}
           <Box className="form-input">
-            <TextField
-            sx={{ width: '100%', maxWidth: '480px' }}
-            id="outlined-required"
-            label="CEP"
-            placeholder="09810-100"
-            variant="standard"
-            onChange={handleZip_codeChange}
-            onBlur={handlePesquisarZip_code}
-            />
+            <Tooltip title="Digite o CEP do local de doação.">
+              <TextField
+              sx={{ width: '100%', maxWidth: '480px' }}
+              id="outlined-required"
+              label="CEP"
+              placeholder="09810-100"
+              variant="standard"
+              onChange={handleZip_codeChange}
+              onBlur={handlePesquisarZip_code}
+              />
+            </Tooltip>
           </Box>
           <Box className="form-input">
             <TextField
@@ -174,23 +176,26 @@ function CadCollect() {
               value={fullAddress}
               variant="standard"
               disabled
+              helperText="Endereço será encontrado com base no CEP digitado."
               />
            </Box>
 
           {/* Campos de texto livre para complemento, nome do local e comentários */}
               <Box className="form-input">
-                <TextField
-                  sx={{ width: '100%', maxWidth: '480px' }}
-                  InputProps={{
-                    inputProps: { min: 0 }
-                  }}
-                  id="number"
-                  label="Número"
-                  type="number" // Definindo o tipo como "number"
-                  value={number}
-                  variant="standard"
-                  onChange={(e) => setNumber(e.target.value)}
-                />
+                <Tooltip title="Número do local">
+                  <TextField
+                    sx={{ width: '100%', maxWidth: '480px' }}
+                    InputProps={{
+                      inputProps: { min: 0 }
+                    }}
+                    id="number"
+                    label="Número"
+                    type="number" // Definindo o tipo como "number"
+                    value={number}
+                    variant="standard"
+                    onChange={(e) => setNumber(e.target.value)}
+                  />
+                </Tooltip>
               </Box>
               <Box className="form-input">
                 <TextField
@@ -203,53 +208,61 @@ function CadCollect() {
                 />
               </Box>
               <Box className="form-input" sx={{ width: '100%' }}>
-                <TextField
-                  sx={{ width: '100%', maxWidth: '480px' }}
-                  required
-                  variant="standard"
-                  id="name"
-                  label="Nome do local de coleta"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                />
+                <Tooltip title="Escolha em nome para o local de doação.">
+                  <TextField
+                    sx={{ width: '100%', maxWidth: '480px' }}
+                    required
+                    variant="standard"
+                    id="name"
+                    label="Nome do local de doação"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                  />
+                </Tooltip>
               </Box>
               <Box className="form-input" sx={{ width: '100%' }}>
-                <TextField
-                  sx={{ width: '100%', maxWidth: '480px' }}
-                  variant="standard"
-                  id="days"
-                  InputProps={{
-                    inputProps: { min: 0 }
-                  }}
-                  type="number" // Definindo o tipo como "number"
-                  defaultValue={15}
-                  label="Receberemos doações por quantos dias?"
-                  value={days}
-                  onChange={(e) => setDays(e.target.value)}
-                />
+                <Tooltip title="Informe por quantos dias o local irá receber doações">
+                  <TextField
+                    sx={{ width: '100%', maxWidth: '480px' }}
+                    variant="standard"
+                    id="days"
+                    InputProps={{
+                      inputProps: { min: 0 }
+                    }}
+                    type="number" // Definindo o tipo como "number"
+                    defaultValue={15}
+                    label="Receberemos doações por quantos dias?"
+                    value={days}
+                    onChange={(e) => setDays(e.target.value)}
+                  />
+                </Tooltip>
               </Box>
               <Box className="form-input" sx={{ width: '100%' }}>
-                <TextField
-                  sx={{ width: '100%', maxWidth: '480px' }}
-                  required
-                  variant="standard"
-                  id="contacts"
-                  label="Contatos do responsável"
-                  value={contacts}
-                  onChange={(e) => setContacts(e.target.value)}
-                />
+                <Tooltip title="Informe o contato ou os contatos para facilitar para os doadores">
+                  <TextField
+                    sx={{ width: '100%', maxWidth: '480px' }}
+                    required
+                    variant="standard"
+                    id="contacts"
+                    label="Contatos do responsável"
+                    value={contacts}
+                    onChange={(e) => setContacts(e.target.value)}
+                  />
+                </Tooltip>
               </Box>
               <Box className="form-input">
-                <TextField
-                  sx={{ width: '100%', maxWidth: '480px' }}
-                  id="comments"
-                  label="Comentários"
-                  value={comments}
-                  onChange={handleCommentsChange}
-                  multiline
-                  rows={5}
-                />
-              </Box>
+                <Tooltip title="Informe coisas relevantes para os doadores, como horário de funcionamento ou itens espeficos necessários">
+                  <TextField
+                    sx={{ width: '100%', maxWidth: '480px' }}
+                    id="comments"
+                    label="Comentários"
+                    value={comments}
+                    onChange={handleCommentsChange}
+                    multiline
+                    rows={5}
+                  />
+                </Tooltip>
+                </Box>
 
           {/* Checkboxes para os itens necessários */}
           <Box className="form-input">
