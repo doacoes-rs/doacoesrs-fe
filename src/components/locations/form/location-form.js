@@ -1,6 +1,9 @@
 import "./location-form.scss"
 import React, { useState } from 'react';
 import Button from '@mui/material/Button';
+import Snackbar from '@mui/material/Snackbar';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
 
 
 import Card from '@mui/material/Card';
@@ -27,7 +30,8 @@ function CadCollect() {
   const [city, setCity] = useState(''); // Estado para armazenar a localidade
   const [state, setState] = useState(''); // Estado para armazenar a UF
   const [fullAddress, setFullAddress] = useState(''); // Estado para armazenar a UF
- // const defaultDate = addDays(new Date(), 15);
+  const [snackbarOpen, setSnackbarOpen] = useState(false); // Estado para controlar a exibição do Snackbar
+  const [snackbarMessage, setSnackbarMessage] = useState(''); // Estado para controlar a mensagem do Snackbar
 
 
   const buscarLocalizacaoPorZip_code = async () => {
@@ -80,7 +84,6 @@ function CadCollect() {
         comments // Incluindo o campo de comentários no payload
       };
 
-
       // Aqui você deve substituir 'URL_DA_API' pela URL da sua API
       const response = await fetch('https://api.doacoesrs.com.br/locations', {
         method: 'POST',
@@ -91,12 +94,32 @@ function CadCollect() {
       });
 
       if (response.ok) {
-        alert('Dados enviados com sucesso!');
+        setSnackbarMessage('Dados enviados com sucesso!');
+        setSnackbarOpen(true);
+        // Limpar os campos após o envio bem-sucedido
+        setZip_code('');
+        setAddress('');
+        setComplement('');
+        setItems([]);
+        setName('');
+        setDays('');
+        setNumber('');
+        setContacts('');
+        setComments('');
+        setCity('');
+        setState('');
+        setFullAddress('');
+        // Recarregar a página após 1 segundo
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
       } else {
         throw new Error('Erro ao enviar os dados para a API');
       }
     } catch (error) {
       console.error('Erro ao enviar dados para a API:', error);
+      setSnackbarMessage('Erro ao enviar os dados para a API');
+      setSnackbarOpen(true);
     }
   };
 
@@ -117,6 +140,12 @@ function CadCollect() {
     const comentariosDigitados = event.target.value;
     setComments(comentariosDigitados);
   };
+
+  // Manipulador de eventos para fechar o Snackbar
+  const handleCloseSnackbar = () => {
+    setSnackbarOpen(false);
+  };
+
   return (
     <Card sx={{ maxWidth: 500 }} className="form-container">
         <CardContent>
@@ -256,6 +285,24 @@ function CadCollect() {
           {address && contacts && name &&(
             <Button variant="contained" onClick={enviarDadosParaApi}>Cadastrar</Button>
           )}
+        {/* Snackbar para exibir mensagem de sucesso ou erro */}
+        <Snackbar
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'left',
+          }}
+          open={snackbarOpen}
+          autoHideDuration={6000}
+          onClose={handleCloseSnackbar}
+          message={snackbarMessage}
+          action={
+            <React.Fragment>
+              <IconButton size="small" aria-label="close" color="inherit" onClick={handleCloseSnackbar}>
+                <CloseIcon fontSize="small" />
+              </IconButton>
+            </React.Fragment>
+          }
+        />
       </CardContent>
     </Card>
   );
