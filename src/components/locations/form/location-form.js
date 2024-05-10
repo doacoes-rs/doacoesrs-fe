@@ -221,6 +221,7 @@ function CadCollect() {
                   InputProps={{
                     inputProps: { min: 0 }
                   }}
+                  type="number" // Definindo o tipo como "number"
                   defaultValue={15}
                   label="Receberemos doações por quantos dias?"
                   value={days}
