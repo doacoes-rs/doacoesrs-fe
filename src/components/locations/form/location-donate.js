@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { FormControl, InputLabel, Select, MenuItem, Button, Box, Typography, Card, CardContent, Alert, AlertTitle, Link, IconButton } from '@mui/material';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import DeleteIcon from '@mui/icons-material/Delete';
+import ShareIcon from '@mui/icons-material/Share';
 
 function Donate() {
   const [items, setItems] = useState([]);
@@ -108,6 +109,27 @@ function Donate() {
     }
   };
 
+  const handleShare = async (item) => {
+    try {
+      if (navigator.share) {
+        await navigator.share({
+          title: 'Compartilhar doação',
+          text: `Veja as informações sobre a doação em ${item.name}:
+          Endereço: ${item.address}, ${item.number} - ${item.complement}, ${item.zip_code}
+          Contatos: ${item.contacts}
+          Comentários: ${item.comments}
+          O que precisamos: ${item.items.join(', ')}`
+        });
+        console.log('Conteúdo compartilhado com sucesso!');
+      } else {
+        // Se o navigator.share() não estiver disponível, ofereça uma alternativa
+        console.log('navigator.share() não suportado. Oferecer uma alternativa.');
+      }
+    } catch (error) {
+      console.error('Erro ao compartilhar conteúdo:', error);
+    }
+  };
+
   return (
     <Card sx={{ maxWidth: 500 }} className="form-container">
         <Alert severity="warning">
@@ -178,8 +200,13 @@ function Donate() {
       )}
         {items.map((item, index) => (
         <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-          <Card key={index} sx={{ maxWidth: 400, marginTop: 2 }}>
+          <Card key={index} id={`card-${index}`} sx={{ maxWidth: 400, marginTop: 2 }}>
             <CardContent>
+              <IconButton sx ={{justifyContent: 'flex-end'}}
+                onClick={() => handleShare(item)}
+                aria-label="share">
+                <ShareIcon />
+              </IconButton>
               <Typography variant="h6" component="div">
                 {item.name}
               </Typography>
@@ -196,7 +223,7 @@ function Donate() {
                 O que precisamos: {item.items.join(', ')}
               </Typography>
               <IconButton
-                onClick={handleDeletePush(item.name)}
+                onClick={() => handleDeletePush(item.name)}
                 aria-label="delete">
                 <DeleteIcon />
               </IconButton>
