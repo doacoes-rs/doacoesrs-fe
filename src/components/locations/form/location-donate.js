@@ -1,11 +1,13 @@
 import "./location-form.scss"
 import React, { useState, useEffect } from 'react';
-import { FormControl, InputLabel, Select, MenuItem, Button, Box, Typography, Card, CardContent, Alert, AlertTitle, Link, IconButton } from '@mui/material';
+import { FormControl, InputLabel, Select, MenuItem, Button, Box, Typography, Card, CardContent, Alert, AlertTitle, Link, IconButton, Dialog, DialogTitle, DialogContent, DialogActions, } from '@mui/material';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ShareIcon from '@mui/icons-material/Share';
 
+
 function Donate() {
+  const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
   const [items, setItems] = useState([]);
   const [estados, setEstados] = useState([]); // Estado para armazenar os estados
   const [cidades, setCidades] = useState([]); // Estado para armazenar as cidades
@@ -109,6 +111,10 @@ function Donate() {
     }
   };
 
+  const openDeleteConfirmation = () => {
+    setOpenDeleteDialog(true);
+  };
+
   const handleShare = async (item) => {
     try {
       if (navigator.share) {
@@ -131,6 +137,7 @@ function Donate() {
   };
 
   return (
+    
     <Card sx={{ maxWidth: 500 }} className="form-container">
         <Alert severity="warning">
           <AlertTitle>Cuidado</AlertTitle>
@@ -223,11 +230,21 @@ function Donate() {
                 O que precisamos: {item.items.join(', ')}
               </Typography>
               <IconButton
-                onClick={() => handleDeletePush(item.name)}
+                onClick={openDeleteConfirmation}
                 aria-label="delete">
                 <DeleteIcon />
               </IconButton>
             </CardContent>
+            <Dialog open={openDeleteDialog} onClose={() => setOpenDeleteDialog(false)}>
+              <DialogTitle>Confirmação</DialogTitle>
+              <DialogContent>
+                <Typography variant="body1">Tem certeza de que deseja excluir este item?</Typography>
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={() => setOpenDeleteDialog(false)}>Cancelar</Button>
+                <Button onClick={() => handleDeletePush(item)} variant="contained" color="error">Confirmar</Button>
+              </DialogActions>
+            </Dialog>
           </Card>
         </Box>
         ))}
