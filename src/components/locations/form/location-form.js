@@ -15,32 +15,31 @@ import Box from '@mui/material/Box';
 
 
 function CadCollect() {
-  const [cep, setCep] = useState(''); // Estado para armazenar o CEP
-  const [endereco, setEndereco] = useState(''); // Estado para armazenar o endereço encontrado com base no CEP
-  const [complemento, setComplemento] = useState(''); // Estado para armazenar o complemento
-  const [itensNecessarios, setItensNecessarios] = useState([]); // Estado para armazenar os itens necessários
-  const [nomeLocal, setNomeLocal] = useState(''); // Estado para armazenar o nome do local de coleta
-  const [numero, setNumero] = useState(''); // Estado para armazenar o número
-  const [responsavel, setResponsavel] = useState(''); // Estado para armazenar o nome do local de coleta
-  const [comentarios, setComentarios] = useState(''); // Estado para armazenar os comentários
-  const [localidade, setLocalidade] = useState(''); // Estado para armazenar a localidade
-  const [uf, setUf] = useState(''); // Estado para armazenar a UF
-  // Função para buscar a localização com base no CEP
+  const [zip_code, setZip_code] = useState(''); // Estado para armazenar o CEP
+  const [address, setAddress] = useState(''); // Estado para armazenar o endereço encontrado com base no CEP
+  const [complement, setComplement] = useState(''); // Estado para armazenar o complemento
+  const [items, setItems] = useState([]); // Estado para armazenar os itens necessários
+  const [name, setName] = useState(''); // Estado para armazenar o nome do local de coleta
+  const [number, setNumber] = useState(''); // Estado para armazenar o número
+  const [contacts, setContacts] = useState(''); // Estado para armazenar o nome do local de coleta
+  const [comments, setComments] = useState(''); // Estado para armazenar os comentários
+  const [city, setCity] = useState(''); // Estado para armazenar a localidade
+  const [state, setState] = useState(''); // Estado para armazenar a UF
 
  // const defaultDate = addDays(new Date(), 15);
 
 
-  const buscarLocalizacaoPorCep = async () => {
+  const buscarLocalizacaoPorZip_code = async () => {
     try {
-      const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
+      const response = await fetch(`https://viacep.com.br/ws/${zip_code}/json/`);
       const data = await response.json();
       if (!data.erro) {
         const enderecoCompleto = `${data.logradouro}, ${data.localidade} - ${data.uf}`;
-        setEndereco(enderecoCompleto);
-        setUf(data.uf);
-        setLocalidade(data.localidade);
+        setAddress(enderecoCompleto);
+        setState(data.uf);
+        setCity(data.localidade);
       } else {
-        setEndereco('Endereço não encontrado para o CEP fornecido.');
+        setAddress('Endereço não encontrado para o CEP fornecido.');
       }
     } catch (error) {
       console.error('Erro ao buscar localização por CEP:', error);
@@ -48,34 +47,35 @@ function CadCollect() {
   };
 
   // Manipulador de eventos para o campo de CEP
-  const handleCepChange = (event) => {
+  const handleZip_codeChange = (event) => {
     const cepDigitado = event.target.value;
-    setCep(cepDigitado);
+    setZip_code(cepDigitado);
   };
 
   // Manipulador de eventos para o botão de pesquisa de CEP
-  const handlePesquisarCep = () => {
-    buscarLocalizacaoPorCep();
+  const handlePesquisarZip_code = () => {
+    buscarLocalizacaoPorZip_code();
   };
 
   // Função para enviar os dados para a API
   const enviarDadosParaApi = async () => {
     try {
       const payload = {
-        cep,
-        uf,
-        localidade,
-        endereco,
-        numero,
-        complemento,
-        itensNecessarios,
-        nomeLocal,
-        responsavel,
-        comentarios // Incluindo o campo de comentários no payload
+        zip_code,
+        state,
+        city,
+        address,
+        number,
+        complement,
+        items,
+        name,
+        contacts,
+        comments // Incluindo o campo de comentários no payload
       };
 
+
       // Aqui você deve substituir 'URL_DA_API' pela URL da sua API
-      const response = await fetch('https://api.doacoesrs.com.br/locations', {
+      const response = await fetch('https://api.doacoesrs.com.br/location', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -99,16 +99,16 @@ function CadCollect() {
     const isChecked = event.target.checked;
 
     if (isChecked) {
-      setItensNecessarios([...itensNecessarios, itemSelecionado]);
+      setItems([...items, itemSelecionado]);
     } else {
-      setItensNecessarios(itensNecessarios.filter(item => item !== itemSelecionado));
+      setItems(items.filter(item => item !== itemSelecionado));
     }
   };
 
   // Manipulador de eventos para o campo de comentários
-  const handleComentariosChange = (event) => {
+  const handleCommentsChange = (event) => {
     const comentariosDigitados = event.target.value;
-    setComentarios(comentariosDigitados);
+    setComments(comentariosDigitados);
   };
   return (
     <Card sx={{ maxWidth: 500 }} className="form-container">
@@ -125,21 +125,21 @@ function CadCollect() {
             label="CEP"
             placeholder="09810-100"
             variant="standard"
-            onChange={handleCepChange}
-            onBlur={handlePesquisarCep}
+            onChange={handleZip_codeChange}
+            onBlur={handlePesquisarZip_code}
             />
           </Box>
           <Box className="form-input">
             <TextField
               required
               sx={{ width: '100%', maxWidth: '480px' }}
-              id="endereco"
+              id="address"
               label="Endereço"
-              defaultValue={endereco}
-              value={endereco}
+              defaultValue={address}
+              value={address}
               variant="standard"
               disabled
-              onChange={(e) => setEndereco(e.target.value)}
+              onChange={(e) => setAddress(e.target.value)}
               />
            </Box>
 
@@ -153,19 +153,19 @@ function CadCollect() {
                   id="number"
                   label="Número"
                   type="number" // Definindo o tipo como "number"
-                  value={numero}
+                  value={number}
                   variant="standard"
-                  onChange={(e) => setNumero(e.target.value)}
+                  onChange={(e) => setNumber(e.target.value)}
                 />
               </Box>
               <Box className="form-input">
                 <TextField
                   sx={{ width: '100%', maxWidth: '480px' }}
-                  id="complemento"
+                  id="complement"
                   label="Complemento"
-                  value={complemento}
+                  value={complement}
                   variant="standard"
-                  onChange={(e) => setComplemento(e.target.value)}
+                  onChange={(e) => setComplement(e.target.value)}
                 />
               </Box>
               <Box className="form-input" sx={{ width: '100%' }}>
@@ -173,10 +173,10 @@ function CadCollect() {
                   sx={{ width: '100%', maxWidth: '480px' }}
                   required
                   variant="standard"
-                  id="nomeLocal"
+                  id="name"
                   label="Nome do local de coleta"
-                  value={nomeLocal}
-                  onChange={(e) => setNomeLocal(e.target.value)}
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
                 />
               </Box>
               <Box>
@@ -187,19 +187,19 @@ function CadCollect() {
                   sx={{ width: '100%', maxWidth: '480px' }}
                   required
                   variant="standard"
-                  id="responsavel"
+                  id="contacts"
                   label="Contatos do responsável"
-                  value={responsavel}
-                  onChange={(e) => setResponsavel(e.target.value)}
+                  value={contacts}
+                  onChange={(e) => setContacts(e.target.value)}
                 />
               </Box>
               <Box className="form-input">
                 <TextField
                   sx={{ width: '100%', maxWidth: '480px' }}
-                  id="comentarios"
+                  id="comments"
                   label="Comentários"
-                  value={comentarios}
-                  onChange={handleComentariosChange}
+                  value={comments}
+                  onChange={handleCommentsChange}
                   multiline
                   rows={5}
                 />
@@ -239,7 +239,7 @@ function CadCollect() {
           </Box>
 
           {/* Botão de envio */}
-          {endereco && responsavel && nomeLocal &&(
+          {address && contacts && name &&(
             <Button variant="contained" onClick={enviarDadosParaApi}>Cadastrar</Button>
           )}
       </CardContent>
