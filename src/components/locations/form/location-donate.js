@@ -139,7 +139,8 @@ function Donate() {
           Endereço: ${item.address}, ${item.number} - ${item.complement}, ${item.zip_code}
           Contatos: ${item.contacts}
           Comentários: ${item.comments}
-          O que precisamos: ${item.items.join(', ')}`
+          O que precisamos: ${item.items.join(', ')}
+          Acesse o link para mais informações: https://doacoesrs.com.br`
         });
         console.log('Conteúdo compartilhado com sucesso!');
       } else {
@@ -234,7 +235,7 @@ function Donate() {
                 {item.name}
               </Typography>
               <Typography variant="body1">
-                Endereço: {item.address}, {item.number} - {item.complement}, {item.zip_code}
+                Endereço: {item.city}, {item.state}, {item.address}, {item.number} - {item.complement}, {item.zip_code}
               </Typography>
               <Typography variant="body2">
                 Contatos: {item.contacts}
