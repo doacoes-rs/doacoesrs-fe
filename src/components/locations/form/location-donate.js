@@ -13,6 +13,21 @@ function Donate() {
   const [cidades, setCidades] = useState([]); // Estado para armazenar as cidades
   const [selectedEstado, setSelectedEstado] = useState(''); // Estado para armazenar o estado selecionado
   const [selectedCidade, setSelectedCidade] = useState(''); // Estado para armazenar a cidade selecionada
+  const [isMobile, setIsMobile] = useState(false); // Estado para armazenar se a tela é mobile
+
+  useEffect(() => {
+    const setMobileView = () => {
+      setIsMobile(window.innerWidth < 600); // Define isMobile como verdadeiro se a largura da tela for menor que 600 pixels
+    };
+
+    setMobileView(); // Define o estado inicial de isMobile
+
+    window.addEventListener('resize', setMobileView); // Adiciona um listener para o evento de redimensionamento da tela
+
+    return () => {
+      window.removeEventListener('resize', setMobileView); // Remove o listener quando o componente é desmontado para evitar vazamento de memória
+    };
+  }, []);
 
   useEffect(() => {
     // Função para buscar os estados do Brasil na API do IBGE
@@ -137,7 +152,6 @@ function Donate() {
   };
 
   return (
-    
     <Card sx={{ maxWidth: 500 }} className="form-container">
         <Alert severity="warning">
           <AlertTitle>Cuidado</AlertTitle>
@@ -209,11 +223,13 @@ function Donate() {
         <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
           <Card key={index} id={`card-${index}`} sx={{ maxWidth: 400, marginTop: 2 }}>
             <CardContent>
-              <IconButton sx ={{justifyContent: 'flex-end'}}
-                onClick={() => handleShare(item)}
-                aria-label="share">
-                <ShareIcon />
-              </IconButton>
+              {isMobile && (
+                <IconButton sx ={{justifyContent: 'flex-end'}}
+                  onClick={() => handleShare(item)}
+                  aria-label="share">
+                  <ShareIcon />
+                </IconButton>
+              )}
               <Typography variant="h6" component="div">
                 {item.name}
               </Typography>
