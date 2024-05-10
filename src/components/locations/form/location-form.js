@@ -20,6 +20,7 @@ function CadCollect() {
   const [complement, setComplement] = useState(''); // Estado para armazenar o complemento
   const [items, setItems] = useState([]); // Estado para armazenar os itens necessários
   const [name, setName] = useState(''); // Estado para armazenar o nome do local de coleta
+  const [days, setDays] = useState(''); // Estado para armazenar o nome do local de coleta
   const [number, setNumber] = useState(''); // Estado para armazenar o número
   const [contacts, setContacts] = useState(''); // Estado para armazenar o nome do local de coleta
   const [comments, setComments] = useState(''); // Estado para armazenar os comentários
@@ -59,6 +60,11 @@ function CadCollect() {
 
   // Função para enviar os dados para a API
   const enviarDadosParaApi = async () => {
+    const dataInicial = new Date();
+    const expiration = new Date(dataInicial);
+    expiration.setDate(expiration.getDate() + parseInt(days));
+    const expiration_date = expiration.getTime();
+    console.log(zip_code)
     try {
       const payload = {
         zip_code,
@@ -70,6 +76,7 @@ function CadCollect() {
         items,
         name,
         contacts,
+        expiration_date,
         comments // Incluindo o campo de comentários no payload
       };
 
@@ -178,8 +185,16 @@ function CadCollect() {
                   onChange={(e) => setName(e.target.value)}
                 />
               </Box>
-              <Box>
-
+              <Box className="form-input" sx={{ width: '100%' }}>
+                <TextField
+                  sx={{ width: '100%', maxWidth: '480px' }}
+                  variant="standard"
+                  id="days"
+                  defaultValue={15}
+                  label="Receberemos doações por quantos dias?"
+                  value={days}
+                  onChange={(e) => setDays(e.target.value)}
+                />
               </Box>
               <Box className="form-input" sx={{ width: '100%' }}>
                 <TextField
