@@ -20,10 +20,13 @@ function Home() {
             Bem-vindo ao site de organização de doações para vítimas da enchente no Rio Grande do Sul!
           </Typography>
           <Typography variant="body1" gutterBottom>
-            Em momentos de crise, como uma enchente, a solidariedade e a união se tornam ferramentas essenciais para superar os desafios enfrentados pelas comunidades afetadas. Facilitar a integração dos voluntários e organizar as doações desempenha um papel crucial nesse processo de reconstrução e apoio mútuo.
-
-            Ao aproximar as pessoas, criamos um ambiente propício para a colaboração e a troca de recursos.
+            Aqui você encontra locais para doar e contribuir com as comunidades afetadas pela enchente no Rio Grande do Sul. Através da nossa plataforma, você pode encontrar informações sobre os locais de doação mais próximos de você e descobrir como ajudar quem mais precisa nesse momento de dificuldade.
           </Typography>
+          <Box mt={2} mb={2}>
+            <Button variant="contained" color="primary" href="/locaisdoacao">
+              Encontre locais para doar
+            </Button>
+          </Box>
           {/* Carrossel de imagens */}
           <Carousel>
             {photos.map((photo, index) => (
@@ -33,6 +36,9 @@ function Home() {
             ))}
           </Carousel>
           <Typography variant="body1" gutterBottom>
+          Em momentos de crise, como uma enchente, a solidariedade e a união se tornam ferramentas essenciais para superar os desafios enfrentados pelas comunidades afetadas. Facilitar a integração dos voluntários e organizar as doações desempenha um papel crucial nesse processo de reconstrução e apoio mútuo.
+
+          Ao aproximar as pessoas, criamos um ambiente propício para a colaboração e a troca de recursos.
           Além disso, a organização eficiente das doações garante que os recursos sejam distribuídos de maneira equitativa e atendam às necessidades reais daqueles que foram afetados pelo desastre. Isso evita desperdícios e maximiza o impacto positivo das contribuições recebidas.
 
           Nesse contexto, cada voluntário se torna um elo vital na cadeia de ajuda, oferecendo seu tempo, habilidades e recursos para ajudar aqueles que mais precisam.
@@ -40,11 +46,6 @@ function Home() {
           <Typography variant="body1" sx={{ backgroundColor: '#ffe0b2', padding: '12px', borderRadius: '4px', marginBottom: '16px', boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)', }}>
             É importante ressaltar que não temos responsabilidade sobre o conteúdo das doações e nem sobre os locais de doações, uma vez que o cadastro é público. Nesse momento, estamos apenas facilitando a conexão entre quem quer doar e quem precisa de doações.
           </Typography>
-          <Box mt={2}>
-            <Button variant="contained" color="primary" href="/locaisdoacao">
-              Encontre locais para doar
-            </Button>
-          </Box>
         </CardContent>
       </Card>
     </Container>
