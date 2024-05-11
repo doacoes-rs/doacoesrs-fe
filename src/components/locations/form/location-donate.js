@@ -116,12 +116,15 @@ function Donate() {
       if (response.ok) {
         // Chama a função onDelete para remover o item da lista
         //onDelete(item);
+        handlePesquisar();
       } else {
         // Se a resposta não estiver OK, lança um erro
         throw new Error('Erro ao excluir o item');
       }
     } catch (error) {
       console.error('Erro ao excluir o item:', error);
+    } finally {
+      setOpenDeleteDialog(false);
     }
   };
 
