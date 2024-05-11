@@ -103,14 +103,13 @@ function Donate() {
 
   const handleDeletePush = async (itemDelete) => {
     try {
-      const url = `https://api.doacoesrs.com.br/locations${itemDelete.id}`;
+      const url = `https://api.doacoesrs.com.br/locations/${itemDelete.id}`;
       // Faz a requisição POST para a API
       const response = await fetch(url, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(itemDelete) // Passa o item como corpo da requisição
+        }
       });
       console.log(itemDelete);
       // Verifica se a requisição foi bem-sucedida
