@@ -76,7 +76,7 @@ function CadCollect() {
         address,
         number,
         complement,
-        items,
+        items: formatItems(items),
         name,
         contacts,
         expiration_date,
@@ -121,6 +121,21 @@ function CadCollect() {
       setSnackbarOpen(true);
     }
   };
+
+  const formatItems = (items) => {
+
+    const itemsMap = {
+      "Alimentos": "ALIMENTOS",
+      "Roupas": "ROUPAS",
+      "Remédios": "REMEDIOS",
+      "Produtos de higiene": "HIGIENE",
+      "Produtos de limpeza": "LIMPEZA",
+      "Produtos para PETs": "PETS",
+      "Outros": "OUTROS",
+    }
+    
+    return items.map((item) => itemsMap[item])
+  }
 
   // Manipulador de eventos para a seleção de itens necessários
   const handleItemNecessarioChange = (event) => {
