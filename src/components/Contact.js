@@ -10,7 +10,7 @@ function Contact() {
             Entre em contato conosco
           </Typography>
           <Typography variant="body1" gutterBottom>
-            Estamos aqui para ajudar! Se você tiver alguma dúvida, sugestão, ou desejar fazer alguma contribuição para melhorar nosso serviço e ajudar as vítimas da enchente, por favor, não hesite em nos contatar, nosso email é admin@doacoesrs.com.br
+            Estamos aqui para ajudar! Se você tiver alguma dúvida, sugestão, ou desejar fazer alguma contribuição para melhorar nosso serviço e ajudar as vítimas da enchente, por favor, não hesite em nos contatar, nosso email é contato@doacoesrs.com.br
           </Typography>
           <Box sx={{ display: 'flex', justifyContent: 'center', marginBottom: '20px' }}>
             <img src="https://www.estado.rs.gov.br/upload/recortes/201707/20075647_1210628_GDO.jpg" alt="Bandeira do Rio Grande do Sul" style={{ maxWidth: '200px', height: 'auto' }} />
