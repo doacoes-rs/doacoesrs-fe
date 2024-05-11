@@ -154,6 +154,20 @@ function Donate() {
     }
   };
 
+  const formatItems = items => {
+    const itemsMap = {
+      "ALIMENTOS": "Alimentos",
+      "ROUPAS": "Roupas",
+      "REMEDIOS": "Remédios",
+      "HIGIENE": "Produtos de higiene",
+      "LIMPEZA": "Produtos de limpeza",
+      "PETS": "Produtos para PETs",
+      "OUTROS": "Outros",
+    }
+
+    return items.map((item) => itemsMap[item]).join(", ")
+  }
+
   return (
     <Card sx={{ maxWidth: 500 }} className="form-container">
         <Alert severity="warning">
@@ -242,12 +256,18 @@ function Donate() {
               <Typography variant="body2">
                 Contatos: {item.contacts}
               </Typography>
-              <Typography variant="body2">
-                Comentários: {item.comments}
-              </Typography>
-              <Typography variant="body2">
-                O que precisamos: {item.items.join(', ')}
-              </Typography>
+              {
+                item.comments && 
+                <Typography variant="body2">
+                  Comentários: {item.comments}
+                </Typography>
+              }
+              {
+                item.items && 
+                <Typography variant="body2">
+                  O que precisamos: {formatItems(item.items)}
+                </Typography>
+              }
               <IconButton
                 onClick={openDeleteConfirmation}
                 aria-label="delete">
