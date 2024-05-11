@@ -23,7 +23,7 @@ function Home() {
             Aqui você encontra locais para doar e contribuir com as comunidades afetadas pela enchente no Rio Grande do Sul. Através da nossa plataforma, você pode encontrar informações sobre os locais de doação mais próximos de você e descobrir como ajudar quem mais precisa nesse momento de dificuldade.
           </Typography>
           <Box mt={2} mb={2}>
-            <Button variant="contained" color="primary" href="/locaisdoacao">
+            <Button variant="contained" color="primary" href="/ondedoar">
               Encontre locais para doar
             </Button>
           </Box>
