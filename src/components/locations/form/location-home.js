@@ -22,7 +22,7 @@ function Home() {
           <Typography variant="body1" gutterBottom>
             Em momentos de crise, como uma enchente, a solidariedade e a união se tornam ferramentas essenciais para superar os desafios enfrentados pelas comunidades afetadas. Facilitar a integração dos voluntários e organizar as doações desempenha um papel crucial nesse processo de reconstrução e apoio mútuo.
 
-            Ao aproximar as pessoas, seja através de plataformas online ou de eventos presenciais coordenados, criamos um ambiente propício para a colaboração e a troca de recursos. Essa integração não apenas agiliza a prestação de assistência às vítimas, mas também fortalece os laços comunitários, promovendo um senso de pertencimento e solidariedade.
+            Ao aproximar as pessoas, criamos um ambiente propício para a colaboração e a troca de recursos.
           </Typography>
           {/* Carrossel de imagens */}
           <Carousel>
@@ -35,9 +35,7 @@ function Home() {
           <Typography variant="body1" gutterBottom>
           Além disso, a organização eficiente das doações garante que os recursos sejam distribuídos de maneira equitativa e atendam às necessidades reais daqueles que foram afetados pelo desastre. Isso evita desperdícios e maximiza o impacto positivo das contribuições recebidas.
 
-          Nesse contexto, cada voluntário se torna um elo vital na cadeia de ajuda, oferecendo seu tempo, habilidades e recursos para ajudar aqueles que mais precisam. Essa colaboração coletiva não apenas fornece assistência material, como alimentos, roupas e abrigos temporários, mas também oferece conforto emocional e apoio psicossocial às vítimas, mostrando que não estão sozinhas em sua jornada de recuperação.
-
-          Portanto, ao facilitar a integração dos voluntários e ajudar na organização das doações para as vítimas da enchente, não apenas respondemos às necessidades imediatas da comunidade, mas também fortalecemos os laços de solidariedade e empatia que nos unem como seres humanos. Essa união é a essência da resiliência comunitária e nos inspira a enfrentar desafios juntos, com esperança e determinação.
+          Nesse contexto, cada voluntário se torna um elo vital na cadeia de ajuda, oferecendo seu tempo, habilidades e recursos para ajudar aqueles que mais precisam.
           </Typography>
           <Typography variant="body1" sx={{ backgroundColor: '#ffe0b2', padding: '12px', borderRadius: '4px', marginBottom: '16px', boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)', }}>
             É importante ressaltar que não temos responsabilidade sobre o conteúdo das doações e nem sobre os locais de doações, uma vez que o cadastro é público. Nesse momento, estamos apenas facilitando a conexão entre quem quer doar e quem precisa de doações.
