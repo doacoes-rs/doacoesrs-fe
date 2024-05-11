@@ -164,7 +164,10 @@ function CadCollect() {
     <Card sx={{ maxWidth: 500 }} className="form-container">
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
-            Cadastrar local para receber doações
+            Cadastrar local para coleta doações
+          </Typography>
+          <Typography variant="body1" gutterBottom>
+            Aqui você pode cadastrar um local para receber doações. Preencha os campos abaixo com as informações necessárias.
           </Typography>
 
           {/* Campo de entrada para o CEP */}
