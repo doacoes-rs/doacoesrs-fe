@@ -1,6 +1,6 @@
 import "./location-form.scss"
 import React, { useState, useEffect } from 'react';
-import { FormControl, InputLabel, Select, MenuItem, Button, Box, Typography, Card, CardContent, Alert, AlertTitle, Link, IconButton, Dialog, DialogTitle, DialogContent, DialogActions, } from '@mui/material';
+import { FormControl, Button, Box, Typography, Card, CardContent, Alert, AlertTitle, Link, IconButton, Dialog, DialogTitle, DialogContent, DialogActions, Autocomplete, TextField} from '@mui/material';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ShareIcon from '@mui/icons-material/Share';
@@ -61,15 +61,16 @@ function Donate() {
   };
 
   // Manipulador de eventos para quando o estado é selecionado
-  const handleEstadoChange = (event) => {
-    const estadoSelecionado = event.target.value;
+  const handleEstadoChange = (event, value) => {
+    console.log(value)
+    const estadoSelecionado = value.sigla;
     setSelectedEstado(estadoSelecionado);
     carregarCidades(estadoSelecionado); // Chama a função para buscar as cidades do estado selecionado
   };
 
   // Manipulador de eventos para quando a cidade é selecionada
-  const handleCidadeChange = (event) => {
-    const cidadeSelecionada = event.target.value;
+  const handleCidadeChange = (event, value) => {
+    const cidadeSelecionada = value.nome;
     setSelectedCidade(cidadeSelecionada);
   };
 
@@ -187,46 +188,26 @@ function Donate() {
       <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
       {/* Campo de seleção para os estados */}
       <FormControl sx={{ width: '100%', marginBottom: 2 }}>
-        <InputLabel id="estado-label">Selecione um estado</InputLabel>
-        <Select
-          labelId="estado-label"
+        <Autocomplete
           id="estado"
-          value={selectedEstado}
+          options={estados}
+          getOptionLabel={(option) => option.nome}
+          renderInput={(params) => <TextField {...params} label="Selecione um estado" />}
           onChange={handleEstadoChange}
-          label="Selecione um estado"
-        >
-          <MenuItem value="">
-            <em>Selecione um estado</em>
-          </MenuItem>
-          {estados.map((estado) => (
-            <MenuItem key={estado.sigla} value={estado.sigla}>
-              {estado.nome}
-            </MenuItem>
-          ))}
-        </Select>
+        />
       </FormControl>
 
       {/* Campo de seleção para as cidades */}
       {selectedEstado && (
         <FormControl sx={{ width: '100%', marginBottom: 2 }}>
-          <InputLabel id="cidade-label">Selecione uma cidade</InputLabel>
-          <Select
-            labelId="cidade-label"
-            id="cidade"
-            value={selectedCidade}
+          <Autocomplete
+            id="estado"
+            options={cidades}
+            getOptionLabel={(option) => option.nome}
+            renderInput={(params) => <TextField {...params} label="Selecione uma cidade" />}
             onChange={handleCidadeChange}
-            label="Selecione uma cidade"
             disabled={!selectedEstado}
-          >
-            <MenuItem value="">
-              <em>Selecione uma cidade</em>
-            </MenuItem>
-            {cidades.map((cidade) => (
-              <MenuItem key={cidade.id} value={cidade.nome}>
-                {cidade.nome}
-              </MenuItem>
-            ))}
-          </Select>
+          />
         </FormControl>
       )}
 
