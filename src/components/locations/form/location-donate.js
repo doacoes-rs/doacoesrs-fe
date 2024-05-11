@@ -141,8 +141,8 @@ function Donate() {
           text: `Veja as informações sobre a doação em ${item.name}:
           Endereço: ${item.address}, ${item.number} - ${item.complement}, ${item.zip_code}
           Contatos: ${item.contacts}
-          Comentários: ${item.comments}
-          O que precisamos: ${formatItems(item.items)}
+          ${item.comments ? `Comentários: ${item.comments}` : ""}
+          ${item.items ? `O que precisamos: ${formatItems(item.items)}` : ""}
           Acesse o link para mais informações: https://doacoesrs.com.br`
         });
         console.log('Conteúdo compartilhado com sucesso!');
