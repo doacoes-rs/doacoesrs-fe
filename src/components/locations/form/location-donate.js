@@ -137,8 +137,8 @@ function Donate() {
     try {
       if (navigator.share) {
         await navigator.share({
-          title: 'Compartilhar doação',
-          text: `Veja as informações sobre a doação em ${item.name}:
+          title: 'Conheça um local que recolhe doações para o RS:',
+          text: `Veja as informações sobre a doação ${item.name}:
           Endereço: ${item.address}, ${item.number} - ${item.complement}, ${item.zip_code}
           Contatos: ${item.contacts}
           ${item.comments ? `Comentários: ${item.comments}` : ""}
