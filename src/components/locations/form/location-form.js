@@ -26,7 +26,7 @@ function CadCollect() {
   const [days, setDays] = useState(''); // Estado para armazenar o nome do local de coleta
   const [number, setNumber] = useState(''); // Estado para armazenar o número
   const [contacts, setContacts] = useState(''); // Estado para armazenar o nome do local de coleta
-  const [comments, setComments] = useState(''); // Estado para armazenar os comentários
+  const [comment, setComment] = useState(''); // Estado para armazenar os comentários
   const [city, setCity] = useState(''); // Estado para armazenar a localidade
   const [state, setState] = useState(''); // Estado para armazenar a UF
   const [fullAddress, setFullAddress] = useState(''); // Estado para armazenar a UF
@@ -68,6 +68,7 @@ function CadCollect() {
     const expiration = new Date(dataInicial);
     expiration.setDate(expiration.getDate() + parseInt(days));
     const expiration_date = Math.floor(expiration.getTime() / 1000);
+    const comments = comment.replace(/[\r\n]+/g, ' ');
     try {
       const payload = {
         zip_code,
@@ -104,7 +105,7 @@ function CadCollect() {
       setDays('');
       setNumber('');
       setContacts('');
-      setComments('');
+      setComment('');
       setCity('');
       setState('');
       setFullAddress('');
@@ -133,7 +134,6 @@ function CadCollect() {
       "Produtos para PETs": "PETS",
       "Outros": "OUTROS",
     }
-    
     return items.map((item) => itemsMap[item])
   }
 
@@ -150,9 +150,9 @@ function CadCollect() {
   };
 
   // Manipulador de eventos para o campo de comentários
-  const handleCommentsChange = (event) => {
+  const handleCommentChange = (event) => {
     const comentariosDigitados = event.target.value;
-    setComments(comentariosDigitados);
+    setComment(comentariosDigitados);
   };
 
   // Manipulador de eventos para fechar o Snackbar
@@ -272,10 +272,10 @@ function CadCollect() {
                 <Tooltip title="Informe coisas relevantes para os doadores, como horário de funcionamento ou itens espeficos necessários">
                   <TextField
                     sx={{ width: '100%', maxWidth: '480px' }}
-                    id="comments"
+                    id="comment"
                     label="Comentários"
-                    value={comments}
-                    onChange={handleCommentsChange}
+                    value={comment}
+                    onChange={handleCommentChange}
                     multiline
                     rows={5}
                   />
