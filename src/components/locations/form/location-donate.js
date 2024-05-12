@@ -76,9 +76,11 @@ function Donate() {
 
   // Função para lidar com a pesquisa
   const handlePesquisar = async () => {
+    var url = `https://api.doacoesrs.com.br/locations`;
+    if (selectedEstado && selectedCidade) {
+      url = `https://api.doacoesrs.com.br/locations?city=${selectedCidade}&state=${selectedEstado}`;
+    }
     try {
-      const url = `https://api.doacoesrs.com.br/locations?city=${selectedCidade}&state=${selectedEstado}`;
-
       // Faz a requisição para a API
       const response = await fetch(url, {
         method: 'GET',
@@ -212,11 +214,9 @@ function Donate() {
       )}
 
       {/* Botão de pesquisa */}
-      {selectedCidade && (
         <Button variant="contained" onClick={handlePesquisar}>
           Pesquisar
         </Button>
-      )}
         {items.map((item, index) => (
         <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
           <Card key={index} id={`card-${index}`} sx={{ maxWidth: 400, marginTop: 2 }}>
