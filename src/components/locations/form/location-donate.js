@@ -62,24 +62,35 @@ function Donate() {
 
   // Manipulador de eventos para quando o estado é selecionado
   const handleEstadoChange = (event, value) => {
-    console.log(value)
-    const estadoSelecionado = value.sigla;
+    const estadoSelecionado = value?.sigla;
     setSelectedEstado(estadoSelecionado);
     carregarCidades(estadoSelecionado); // Chama a função para buscar as cidades do estado selecionado
   };
 
   // Manipulador de eventos para quando a cidade é selecionada
   const handleCidadeChange = (event, value) => {
-    const cidadeSelecionada = value.nome;
+    const cidadeSelecionada = value?.nome;
     setSelectedCidade(cidadeSelecionada);
   };
 
   // Função para lidar com a pesquisa
   const handlePesquisar = async () => {
     var url = `https://api.doacoesrs.com.br/locations`;
-    if (selectedEstado && selectedCidade) {
-      url = `https://api.doacoesrs.com.br/locations?city=${selectedCidade}&state=${selectedEstado}`;
+    const filters = []
+
+    if (selectedEstado) {
+      filters.push(`state=${selectedEstado}`)
     }
+
+    if (selectedCidade) {
+      filters.push(`city=${selectedCidade}`)
+    }
+
+    if (filters.length > 0) {
+      const query = filters.join("&")
+      url = url.concat(`?${query}`)
+    }
+
     try {
       // Faz a requisição para a API
       const response = await fetch(url, {
