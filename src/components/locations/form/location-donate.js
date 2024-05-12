@@ -2,7 +2,6 @@ import "./location-form.scss"
 import React, { useState, useEffect } from 'react';
 import { FormControl, Button, Box, Typography, Card, CardContent, Alert, AlertTitle, Link, IconButton, Dialog, DialogTitle, DialogContent, DialogActions, Autocomplete, TextField} from '@mui/material';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
-import DeleteIcon from '@mui/icons-material/Delete';
 import ShareIcon from '@mui/icons-material/Share';
 
 
@@ -142,9 +141,6 @@ function Donate() {
     }
   };
 
-  const openDeleteConfirmation = () => {
-    setOpenDeleteDialog(true);
-  };
 
   const handleShare = async (item) => {
     try {
