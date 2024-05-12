@@ -171,6 +171,7 @@ function Donate() {
   const formatItems = items => {
     const itemsMap = {
       "ALIMENTOS": "Alimentos",
+      "AGUA": "Água",
       "ROUPAS": "Roupas",
       "REMEDIOS": "Remédios",
       "HIGIENE": "Produtos de higiene",

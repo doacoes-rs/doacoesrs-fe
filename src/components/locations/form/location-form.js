@@ -23,7 +23,7 @@ function CadCollect() {
   const [complement, setComplement] = useState(''); // Estado para armazenar o complemento
   const [items, setItems] = useState([]); // Estado para armazenar os itens necessários
   const [name, setName] = useState(''); // Estado para armazenar o nome do local de coleta
-  const [days, setDays] = useState(''); // Estado para armazenar o nome do local de coleta
+  const [days, setDays] = useState(15); // Estado para armazenar o nome do local de coleta
   const [number, setNumber] = useState(''); // Estado para armazenar o número
   const [contacts, setContacts] = useState(''); // Estado para armazenar o nome do local de coleta
   const [comment, setComment] = useState(''); // Estado para armazenar os comentários
@@ -127,6 +127,7 @@ function CadCollect() {
 
     const itemsMap = {
       "Alimentos": "ALIMENTOS",
+      "Agua": "AGUA",
       "Roupas": "ROUPAS",
       "Remédios": "REMEDIOS",
       "Produtos de higiene": "HIGIENE",
@@ -288,6 +289,10 @@ function CadCollect() {
             <FormControlLabel
               control={<Checkbox name="Alimentos" onChange={handleItemNecessarioChange} />}
               label="Alimentos"
+            />
+            <FormControlLabel
+              control={<Checkbox name="Agua" onChange={handleItemNecessarioChange} />}
+              label="Água"
             />
             <FormControlLabel
               control={<Checkbox name="Roupas" onChange={handleItemNecessarioChange} />}
