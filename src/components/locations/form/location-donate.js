@@ -261,11 +261,11 @@ function Donate() {
                   O que precisamos: {formatItems(item.items)}
                 </Typography>
               }
-              <IconButton
+              {/* <IconButton
                 onClick={openDeleteConfirmation}
                 aria-label="delete">
                 <DeleteIcon />
-              </IconButton>
+              </IconButton> */}
             </CardContent>
             <Dialog open={openDeleteDialog} onClose={() => setOpenDeleteDialog(false)}>
               <DialogTitle>Confirmação</DialogTitle>
