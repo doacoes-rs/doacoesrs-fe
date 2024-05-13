@@ -2,11 +2,13 @@ import "./location-form.scss"
 import React, { useState, useEffect } from 'react';
 import { FormControl, Button, Box, Typography, Card, CardContent, Alert, AlertTitle, Link, IconButton, Dialog, DialogTitle, DialogContent, DialogActions, Autocomplete, TextField} from '@mui/material';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
+import DeleteIcon from '@mui/icons-material/Delete';
 import ShareIcon from '@mui/icons-material/Share';
 
 
 function Donate() {
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
+  const [itemToDelete, setItemToDelete] = useState(null); // Novo estado para armazenar o item a ser excluído
   const [items, setItems] = useState([]);
   const [estados, setEstados] = useState([]); // Estado para armazenar os estados
   const [cidades, setCidades] = useState([]); // Estado para armazenar as cidades
@@ -114,9 +116,11 @@ function Donate() {
     }
   };
 
-  const handleDeletePush = async (itemDelete) => {
+  const handleDeletePush = async () => {
+    if (!itemToDelete) return;
+
     try {
-      const url = `https://api.doacoesrs.com.br/locations/${itemDelete.id}`;
+      const url = `https://api.doacoesrs.com.br/locations/${itemToDelete.id}`;
       // Faz a requisição POST para a API
       const response = await fetch(url, {
         method: 'DELETE',
@@ -124,12 +128,12 @@ function Donate() {
           'Content-Type': 'application/json'
         }
       });
-      console.log(itemDelete);
+
       // Verifica se a requisição foi bem-sucedida
       if (response.ok) {
-        // Chama a função onDelete para remover o item da lista
-        //onDelete(item);
+        // Atualiza os itens após a exclusão
         handlePesquisar();
+        console.log('Item excluído com sucesso!');
       } else {
         // Se a resposta não estiver OK, lança um erro
         throw new Error('Erro ao excluir o item');
@@ -137,10 +141,15 @@ function Donate() {
     } catch (error) {
       console.error('Erro ao excluir o item:', error);
     } finally {
+      // Fecha o diálogo de exclusão
       setOpenDeleteDialog(false);
     }
   };
 
+  const openDeleteConfirmation = (itemId) => {
+    setItemToDelete(items.find(item => item.id === itemId)); // Define o item a ser excluído com base no ID
+    setOpenDeleteDialog(true);
+  };
 
   const handleShare = async (item) => {
     try {
@@ -246,33 +255,33 @@ function Donate() {
                 Contatos: {item.contacts}
               </Typography>
               {
-                item.comments && 
+                item.comments &&
                 <Typography variant="body2">
                   Comentários: {item.comments}
                 </Typography>
               }
               {
-                item.items && 
+                item.items &&
                 <Typography variant="body2">
                   O que precisamos: {formatItems(item.items)}
                 </Typography>
               }
-              {/* <IconButton
-                onClick={openDeleteConfirmation}
+              <IconButton
+                onClick={() => openDeleteConfirmation(item.id)} // Passa o ID do item para a função
                 aria-label="delete">
                 <DeleteIcon />
-              </IconButton> */}
-            </CardContent>
-            <Dialog open={openDeleteDialog} onClose={() => setOpenDeleteDialog(false)}>
+              </IconButton>
+              <Dialog open={openDeleteDialog} onClose={() => setOpenDeleteDialog(false)}>
               <DialogTitle>Confirmação</DialogTitle>
               <DialogContent>
-                <Typography variant="body1">Tem certeza de que deseja excluir este item?</Typography>
+                <Typography variant="body1">Tem certeza de que deseja excluir este o local de coleta {itemToDelete ? itemToDelete.name : ""} Endereço: {itemToDelete ? itemToDelete.address : ""}, {itemToDelete ? itemToDelete.number : ""} - {itemToDelete ? itemToDelete.complement : ""}, {itemToDelete ? itemToDelete.zip_code : ""} </Typography>
               </DialogContent>
-              <DialogActions>
-                <Button onClick={() => setOpenDeleteDialog(false)}>Cancelar</Button>
-                <Button onClick={() => handleDeletePush(item)} variant="contained" color="error">Confirmar</Button>
-              </DialogActions>
-            </Dialog>
+                <DialogActions>
+                  <Button onClick={() => setOpenDeleteDialog(false)}>Cancelar</Button>
+                  <Button onClick={handleDeletePush} variant="contained" color="error">Confirmar</Button>
+                </DialogActions>
+              </Dialog>
+            </CardContent>
           </Card>
         </Box>
         ))}
