@@ -5,7 +5,6 @@ import Snackbar from '@mui/material/Snackbar';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 
-
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
@@ -14,8 +13,6 @@ import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Box from '@mui/material/Box';
 import Tooltip from '@mui/material/Tooltip';
-
-
 
 function CadCollect() {
   const [zip_code, setZip_code] = useState(''); // Estado para armazenar o CEP
@@ -29,20 +26,21 @@ function CadCollect() {
   const [comment, setComment] = useState(''); // Estado para armazenar os comentários
   const [city, setCity] = useState(''); // Estado para armazenar a localidade
   const [state, setState] = useState(''); // Estado para armazenar a UF
+  const [neighborhood, setNeighborhood] = useState(''); // Estado para armazenar o bairro
   const [fullAddress, setFullAddress] = useState(''); // Estado para armazenar a UF
   const [snackbarOpen, setSnackbarOpen] = useState(false); // Estado para controlar a exibição do Snackbar
   const [snackbarMessage, setSnackbarMessage] = useState(''); // Estado para controlar a mensagem do Snackbar
-
 
   const buscarLocalizacaoPorZip_code = async () => {
     try {
       const response = await fetch(`https://viacep.com.br/ws/${zip_code}/json/`);
       const data = await response.json();
       if (!data.erro) {
-        setFullAddress(`${data.logradouro}, ${data.localidade} - ${data.uf}`);
+        setFullAddress(`${data.bairro}, ${data.logradouro}, ${data.localidade} - ${data.uf}`);
         setAddress(data.logradouro);
         setState(data.uf);
         setCity(data.localidade);
+        setNeighborhood(data.bairro);
       } else {
         setAddress('Endereço não encontrado para o CEP fornecido.');
       }
@@ -81,7 +79,8 @@ function CadCollect() {
         name,
         contacts,
         expiration_date,
-        comments // Incluindo o campo de comentários no payload
+        comments, // Incluindo o campo de comentários no payload
+        neighborhood // Incluindo o campo de bairro no payload
       };
 
       // Aqui você deve substituir 'URL_DA_API' pela URL da sua API
@@ -94,25 +93,26 @@ function CadCollect() {
       });
 
       if (response.ok) {
-      setSnackbarMessage('Dados enviados com sucesso!');
-      setSnackbarOpen(true);
-      // Limpar os campos após o envio bem-sucedido
-      setZip_code('');
-      setAddress('');
-      setComplement('');
-      setItems([]);
-      setName('');
-      setDays('');
-      setNumber('');
-      setContacts('');
-      setComment('');
-      setCity('');
-      setState('');
-      setFullAddress('');
-      // Recarregar a página após 1 segundo
-      setTimeout(() => {
-        window.location.reload();
-      }, 1000);
+        setSnackbarMessage('Dados enviados com sucesso!');
+        setSnackbarOpen(true);
+        // Limpar os campos após o envio bem-sucedido
+        setZip_code('');
+        setAddress('');
+        setComplement('');
+        setItems([]);
+        setName('');
+        setDays('');
+        setNumber('');
+        setContacts('');
+        setComment('');
+        setCity('');
+        setState('');
+        setNeighborhood('');
+        setFullAddress('');
+        // Recarregar a página após 1 segundo
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
       } else {
         throw new Error('Erro ao enviar os dados para a API');
       }
@@ -124,7 +124,6 @@ function CadCollect() {
   };
 
   const formatItems = (items) => {
-
     const itemsMap = {
       "Alimentos": "ALIMENTOS",
       "Agua": "AGUA",
@@ -163,18 +162,18 @@ function CadCollect() {
 
   return (
     <Card sx={{ maxWidth: 500 }} className="form-container">
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
-            Cadastrar local para coleta doações
-          </Typography>
-          <Typography variant="body1" gutterBottom>
-            Aqui você pode cadastrar um local para receber doações. Preencha os campos abaixo com as informações necessárias.
-          </Typography>
+      <CardContent>
+        <Typography gutterBottom variant="h5" component="div">
+          Cadastrar local para coleta doações
+        </Typography>
+        <Typography variant="body1" gutterBottom>
+          Aqui você pode cadastrar um local para receber doações. Preencha os campos abaixo com as informações necessárias.
+        </Typography>
 
-          {/* Campo de entrada para o CEP */}
-          <Box className="form-input">
-            <Tooltip title="Digite o CEP do local de doação.">
-              <TextField
+        {/* Campo de entrada para o CEP */}
+        <Box className="form-input">
+          <Tooltip title="Digite o CEP do local de doação.">
+            <TextField
               sx={{ width: '100%', maxWidth: '480px' }}
               id="outlined-required"
               label="CEP"
@@ -182,148 +181,147 @@ function CadCollect() {
               variant="standard"
               onChange={handleZip_codeChange}
               onBlur={handlePesquisarZip_code}
-              />
-            </Tooltip>
-          </Box>
-          <Box className="form-input">
+            />
+          </Tooltip>
+        </Box>
+        <Box className="form-input">
+          <TextField
+            required
+            sx={{ width: '100%', maxWidth: '480px' }}
+            id="fullAddress"
+            label="Endereço"
+            defaultValue={fullAddress}
+            value={fullAddress}
+            variant="standard"
+            disabled
+            helperText="Endereço será encontrado com base no CEP digitado."
+          />
+        </Box>
+        {/* Campos de texto livre para complemento, nome do local e comentários */}
+        <Box className="form-input">
+          <Tooltip title="Número do local">
             <TextField
-              required
               sx={{ width: '100%', maxWidth: '480px' }}
-              id="fullAddress"
-              label="Endereço"
-              defaultValue={fullAddress}
-              value={fullAddress}
+              InputProps={{
+                inputProps: { min: 0 }
+              }}
+              id="number"
+              label="Número"
+              type="number" // Definindo o tipo como "number"
+              value={number}
               variant="standard"
-              disabled
-              helperText="Endereço será encontrado com base no CEP digitado."
-              />
-           </Box>
+              onChange={(e) => setNumber(e.target.value)}
+            />
+          </Tooltip>
+        </Box>
+        <Box className="form-input">
+          <TextField
+            sx={{ width: '100%', maxWidth: '480px' }}
+            id="complement"
+            label="Complemento"
+            value={complement}
+            variant="standard"
+            onChange={(e) => setComplement(e.target.value)}
+          />
+        </Box>
+        <Box className="form-input" sx={{ width: '100%' }}>
+          <Tooltip title="Escolha em nome para o local de doação.">
+            <TextField
+              sx={{ width: '100%', maxWidth: '480px' }}
+              required
+              variant="standard"
+              id="name"
+              label="Nome do local de doação"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+          </Tooltip>
+        </Box>
+        <Box className="form-input" sx={{ width: '100%' }}>
+          <Tooltip title="Informe por quantos dias o local irá receber doações">
+            <TextField
+              sx={{ width: '100%', maxWidth: '480px' }}
+              variant="standard"
+              id="days"
+              InputProps={{
+                inputProps: { min: 0 }
+              }}
+              type="number" // Definindo o tipo como "number"
+              defaultValue={15}
+              label="Receberemos doações por quantos dias?"
+              value={days}
+              onChange={(e) => setDays(e.target.value)}
+            />
+          </Tooltip>
+        </Box>
+        <Box className="form-input" sx={{ width: '100%' }}>
+          <Tooltip title="Informe o contato ou os contatos para facilitar para os doadores">
+            <TextField
+              sx={{ width: '100%', maxWidth: '480px' }}
+              required
+              variant="standard"
+              id="contacts"
+              label="Contatos do responsável"
+              value={contacts}
+              onChange={(e) => setContacts(e.target.value)}
+            />
+          </Tooltip>
+        </Box>
+        <Box className="form-input">
+          <Tooltip title="Informe coisas relevantes para os doadores, como horário de funcionamento ou itens espeficos necessários">
+            <TextField
+              sx={{ width: '100%', maxWidth: '480px' }}
+              id="comment"
+              label="Comentários"
+              value={comment}
+              onChange={handleCommentChange}
+              multiline
+              rows={5}
+            />
+          </Tooltip>
+        </Box>
 
-          {/* Campos de texto livre para complemento, nome do local e comentários */}
-              <Box className="form-input">
-                <Tooltip title="Número do local">
-                  <TextField
-                    sx={{ width: '100%', maxWidth: '480px' }}
-                    InputProps={{
-                      inputProps: { min: 0 }
-                    }}
-                    id="number"
-                    label="Número"
-                    type="number" // Definindo o tipo como "number"
-                    value={number}
-                    variant="standard"
-                    onChange={(e) => setNumber(e.target.value)}
-                  />
-                </Tooltip>
-              </Box>
-              <Box className="form-input">
-                <TextField
-                  sx={{ width: '100%', maxWidth: '480px' }}
-                  id="complement"
-                  label="Complemento"
-                  value={complement}
-                  variant="standard"
-                  onChange={(e) => setComplement(e.target.value)}
-                />
-              </Box>
-              <Box className="form-input" sx={{ width: '100%' }}>
-                <Tooltip title="Escolha em nome para o local de doação.">
-                  <TextField
-                    sx={{ width: '100%', maxWidth: '480px' }}
-                    required
-                    variant="standard"
-                    id="name"
-                    label="Nome do local de doação"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                  />
-                </Tooltip>
-              </Box>
-              <Box className="form-input" sx={{ width: '100%' }}>
-                <Tooltip title="Informe por quantos dias o local irá receber doações">
-                  <TextField
-                    sx={{ width: '100%', maxWidth: '480px' }}
-                    variant="standard"
-                    id="days"
-                    InputProps={{
-                      inputProps: { min: 0 }
-                    }}
-                    type="number" // Definindo o tipo como "number"
-                    defaultValue={15}
-                    label="Receberemos doações por quantos dias?"
-                    value={days}
-                    onChange={(e) => setDays(e.target.value)}
-                  />
-                </Tooltip>
-              </Box>
-              <Box className="form-input" sx={{ width: '100%' }}>
-                <Tooltip title="Informe o contato ou os contatos para facilitar para os doadores">
-                  <TextField
-                    sx={{ width: '100%', maxWidth: '480px' }}
-                    required
-                    variant="standard"
-                    id="contacts"
-                    label="Contatos do responsável"
-                    value={contacts}
-                    onChange={(e) => setContacts(e.target.value)}
-                  />
-                </Tooltip>
-              </Box>
-              <Box className="form-input">
-                <Tooltip title="Informe coisas relevantes para os doadores, como horário de funcionamento ou itens espeficos necessários">
-                  <TextField
-                    sx={{ width: '100%', maxWidth: '480px' }}
-                    id="comment"
-                    label="Comentários"
-                    value={comment}
-                    onChange={handleCommentChange}
-                    multiline
-                    rows={5}
-                  />
-                </Tooltip>
-                </Box>
+        {/* Checkboxes para os itens necessários */}
+        <Box className="form-input">
+          <p>Itens de doação necessários:</p>
+          <FormControlLabel
+            control={<Checkbox name="Alimentos" onChange={handleItemNecessarioChange} />}
+            label="Alimentos"
+          />
+          <FormControlLabel
+            control={<Checkbox name="Agua" onChange={handleItemNecessarioChange} />}
+            label="Água"
+          />
+          <FormControlLabel
+            control={<Checkbox name="Roupas" onChange={handleItemNecessarioChange} />}
+            label="Roupas"
+          />
+          <FormControlLabel
+            control={<Checkbox name="Remédios" onChange={handleItemNecessarioChange} />}
+            label="Remédios"
+          />
+          <FormControlLabel
+            control={<Checkbox name="Produtos de higiene" onChange={handleItemNecessarioChange} />}
+            label="Produtos de Higiene"
+          />
+          <FormControlLabel
+            control={<Checkbox name="Produtos de limpeza" onChange={handleItemNecessarioChange} />}
+            label="Produtos de limpeza"
+          />
+          <FormControlLabel
+            control={<Checkbox name="Produtos para PETs" onChange={handleItemNecessarioChange} />}
+            label="Produtos para PETs"
+          />
+          <FormControlLabel
+            control={<Checkbox name="Outros" onChange={handleItemNecessarioChange} />}
+            label="Outros"
+          />
+        </Box>
 
-          {/* Checkboxes para os itens necessários */}
-          <Box className="form-input">
-            <p>Itens de doação necessários:</p>
-            <FormControlLabel
-              control={<Checkbox name="Alimentos" onChange={handleItemNecessarioChange} />}
-              label="Alimentos"
-            />
-            <FormControlLabel
-              control={<Checkbox name="Agua" onChange={handleItemNecessarioChange} />}
-              label="Água"
-            />
-            <FormControlLabel
-              control={<Checkbox name="Roupas" onChange={handleItemNecessarioChange} />}
-              label="Roupas"
-            />
-            <FormControlLabel
-              control={<Checkbox name="Remédios" onChange={handleItemNecessarioChange} />}
-              label="Remédios"
-            />
-            <FormControlLabel
-              control={<Checkbox name="Produtos de higiene" onChange={handleItemNecessarioChange} />}
-              label="Produtos de Higiene"
-            />
-            <FormControlLabel
-              control={<Checkbox name="Produtos de limpeza" onChange={handleItemNecessarioChange} />}
-              label="Produtos de limpeza"
-            />
-            <FormControlLabel
-              control={<Checkbox name="Produtos para PETs"onChange={handleItemNecessarioChange} />}
-              label="Produtos para PETs"
-            />
-            <FormControlLabel
-              control={<Checkbox name="Outros" onChange={handleItemNecessarioChange} />}
-              label="Outros"
-            />
-          </Box>
-
-          {/* Botão de envio */}
-          {address && contacts && name &&(
-            <Button variant="contained" onClick={enviarDadosParaApi}>Cadastrar</Button>
-          )}
+        {/* Botão de envio */}
+        {address && contacts && name && (
+          <Button variant="contained" onClick={enviarDadosParaApi}>Cadastrar</Button>
+        )}
         {/* Snackbar para exibir mensagem de sucesso ou erro */}
         <Snackbar
           anchorOrigin={{
