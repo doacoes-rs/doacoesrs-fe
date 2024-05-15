@@ -36,7 +36,7 @@ function CadCollect() {
       const response = await fetch(`https://viacep.com.br/ws/${zip_code}/json/`);
       const data = await response.json();
       if (!data.erro) {
-        setFullAddress(`${data.bairro}, ${data.logradouro}, ${data.localidade} - ${data.uf}`);
+        setFullAddress(`${data.logradouro}, ${data.bairro} ${data.localidade}/${data.uf}`);
         setAddress(data.logradouro);
         setState(data.uf);
         setCity(data.localidade);

@@ -249,7 +249,7 @@ function Donate() {
                 {item.name}
               </Typography>
               <Typography variant="body1">
-                Endereço: {item.bairro}, {item.city}, {item.state}, {item.address}, {item.number} - {item.complement}, {item.zip_code}
+                Endereço: {item.address}, {item.number}{item.complement ? `, ${item.complement}` : ""}, {item.neighborhood}, {item.city}/{item.state}. CEP: {item.zip_code}
               </Typography>
               <Typography variant="body2">
                 Contatos: {item.contacts}
