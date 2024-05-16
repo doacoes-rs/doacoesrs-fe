@@ -4,6 +4,7 @@ import { FormControl, Button, Box, Typography, Card, CardContent, Alert, AlertTi
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ShareIcon from '@mui/icons-material/Share';
+import { GoogleMap, LoadScript, Marker, InfoWindow } from '@react-google-maps/api';
 
 
 function Donate() {
@@ -15,6 +16,58 @@ function Donate() {
   const [selectedEstado, setSelectedEstado] = useState(''); // Estado para armazenar o estado selecionado
   const [selectedCidade, setSelectedCidade] = useState(''); // Estado para armazenar a cidade selecionada
   const [isMobile, setIsMobile] = useState(false); // Estado para armazenar se a tela é mobile
+  const [userLocation, setUserLocation] = useState(null);
+  const [markers, setMarkers] = useState([]);
+  const [selectedMarker, setSelectedMarker] = useState(null);
+
+
+  useEffect(() => {
+    const items = [
+      { latitude: -23.55052, longitude: -46.633308, nome: "São Paulo", endereco: "Av. Paulista, 1000", cidade: "São Paulo", estado: "SP" },
+      { latitude: -15.794229, longitude: -47.882166, nome: "Brasília", endereco: "Esplanada dos Ministérios", cidade: "Brasília", estado: "DF" },
+      { latitude: -3.71839, longitude: -38.543398, nome: "Fortaleza", endereco: "Av. Beira Mar", cidade: "Fortaleza", estado: "CE" },
+      { latitude: -22.906847, longitude: -43.172897, nome: "Rio de Janeiro", endereco: "Cristo Redentor", cidade: "Rio de Janeiro", estado: "RJ" },
+      { latitude: -25.4295963, longitude: -49.2712724, nome: "Curitiba", endereco: "Rua das Flores", cidade: "Curitiba", estado: "PR" },
+      { latitude: -16.67992, longitude: -49.253268, nome: "Goiânia", endereco: "Parque Vaca Brava", cidade: "Goiânia", estado: "GO" },
+      { latitude: -22.9068, longitude: -43.1729, nome: "Salvador", endereco: "Pelourinho", cidade: "Salvador", estado: "BA" },
+      { latitude: -30.034631, longitude: -51.217698, nome: "Porto Alegre", endereco: "Usina do Gasômetro", cidade: "Porto Alegre", estado: "RS" },
+      { latitude: -19.9166813, longitude: -43.9344931, nome: "Belo Horizonte", endereco: "Praça da Liberdade", cidade: "Belo Horizonte", estado: "MG" },
+      { latitude: -15.794157, longitude: -47.882486, nome: "Palmas", endereco: "Praça dos Girassóis", cidade: "Palmas", estado: "TO" },
+    ];
+
+    setMarkers(items);
+  }, []);
+
+  useEffect(() => {
+    // Função para obter a localização do usuário
+    const getLocation = () => {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            const { latitude, longitude } = position.coords;
+            setUserLocation({ lat: latitude, lng: longitude });
+          },
+          (error) => {
+            console.error('Erro ao obter a localização do usuário:', error);
+          }
+        );
+      } else {
+        console.error('Geolocalização não é suportada neste navegador.');
+      }
+    };
+
+    // Obtém a localização do usuário quando o componente é montado
+    getLocation();
+  }, []);
+  // Função para inicializar o mapa do Google Maps
+  const initMap = () => {
+    // Código para inicializar o mapa aqui
+  };
+
+  useEffect(() => {
+    // Chama initMap quando a página é carregada
+    initMap();
+  }, []);
 
   useEffect(() => {
     const setMobileView = () => {
@@ -234,6 +287,25 @@ function Donate() {
         <Button variant="contained" onClick={handlePesquisar}>
           Pesquisar
         </Button>
+        <LoadScript googleMapsApiKey="AIzaSyAU9qV8JOd8aty-k2JSqdkMmAqz5lAJ0I8">
+          <GoogleMap
+            center={userLocation} // Define o centro do mapa como a localização do usuário
+            zoom={userLocation ? 3 : 3} // Ajusta o zoom do mapa com base na localização do usuário
+            options={{
+              zoomControl: false, // Remove o controle de zoom
+              mapTypeControl: false, // Remove o controle de tipo de mapa
+            }}
+            mapContainerStyle={{ width: '100%', height: '400px' }}
+            >
+            {markers.map((marker, index) => (
+            <Marker
+              key={index}
+              position={{ lat: marker.latitude, lng: marker.longitude }}
+              onClick={() => setSelectedMarker(marker)}
+            />
+          ))}
+          </GoogleMap>
+        </LoadScript>
         {items.map((item, index) => (
         <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
           <Card key={index} id={`card-${index}`} sx={{ maxWidth: 400, marginTop: 2 }}>
